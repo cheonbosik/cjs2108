@@ -24,6 +24,18 @@
 	
 	<context:component-scan base-package="com.spring.cjs2108" />
 	
-	
+	<!-- Interceptor 설정하기 -->
+	<beans:bean id="memberInterceptor" class="com.spring.cjs2108.interceptor.MemberInterceptor"/>
+	<beans:bean id="studyInterceptor" class="com.spring.cjs2108.interceptor.StudyInterceptor"/>
+	<interceptors>
+	  <interceptor>
+	    <mapping path="/member/memUpdate"/>
+	    <beans:ref bean="memberInterceptor"/>
+	  </interceptor>
+	  <interceptor>
+	    <mapping path="/study/**"/>
+	    <beans:ref bean="studyInterceptor"/>
+	  </interceptor>
+	</interceptors>
 	
 </beans:beans>

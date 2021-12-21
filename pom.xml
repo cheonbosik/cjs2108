@@ -144,6 +144,15 @@
 			<version>8.0.26</version>
 		</dependency>
 
+		<!-- lombok(getters/setters와 toString을 자동으로 만들어주는 라이브러리) -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		
 
 	</dependencies>
 	<build>

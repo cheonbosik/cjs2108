@@ -21,7 +21,7 @@
 	<!-- Page content -->
 	
 	<!-- Automatic Slideshow Images -->
-	<jsp:include page="/WEB-INF/views/include/slide.jsp"/>
+	<jsp:include page="/WEB-INF/views/include/slide2.jsp"/>
 	
   <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">

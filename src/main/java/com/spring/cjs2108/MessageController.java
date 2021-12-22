@@ -37,6 +37,14 @@ public class MessageController {
 			model.addAttribute("msg", nickName + "로그인후 사용하세요.");
 			model.addAttribute("url", "member/memLogin");
 		}
+		else if(msgFlag.equals("fileUploadOk")) {
+			model.addAttribute("msg", "파일이 업로드 되었습니다.");
+			model.addAttribute("url", "study/fileUpload");
+		}
+		else if(msgFlag.equals("fileUploadNo")) {
+			model.addAttribute("msg", "파일 업로드 실패~~~");
+			model.addAttribute("url", "study/fileUpload");
+		}
 		
 		
 		

@@ -2,14 +2,15 @@ package com.spring.cjs2108;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.cjs2108.service.MemberService;
 import com.spring.cjs2108.service.StudyService;
 import com.spring.cjs2108.vo.MemberVO;
 
@@ -104,4 +105,32 @@ public class StudyController {
 		return studyService.getMemberVos(mid);
 	}
 	
+	@RequestMapping(value="/uuid", method = RequestMethod.GET)
+	public String uuidGet() {
+		return "study/uuid/uid";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/uuid", method = RequestMethod.POST)
+	public String uuidPost() {
+		UUID uid = UUID.randomUUID();
+		return uid.toString();
+	}
+	
+	@RequestMapping(value="/fileUpload", method = RequestMethod.GET)
+	public String fileUploadGet() {
+		return "study/fileUpload/fileUpload";
+	}
+	
+	@RequestMapping(value="/fileUpload", method = RequestMethod.POST)
+	public String fileUploadPost(MultipartFile fName) {
+		int res = studyService.fileUpload(fName);
+		if(res == 1) {		
+			msgFlag = "fileUploadOk";
+		}
+		else {
+			msgFlag = "fileUploadNo";
+		}
+		return "redirect:/msg/" + msgFlag;
+	}
 }

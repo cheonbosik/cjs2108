@@ -36,6 +36,7 @@ update member2 set level = 0 where mid = 'admin';
 update member2 set pwd = '127420962', pwdKey=15, tel='010/3423/2704', address='경기도 안성시///' where mid = 'admin';
 delete from member2 where mid='hkd1234';
 
+select * from member;
 select * from member2;
 select * from member2 order by idx desc;
 

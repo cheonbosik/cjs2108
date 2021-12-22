@@ -20,6 +20,10 @@
     <a href="${ctp}/study/ajax/ajaxTest2" class="btn btn-secondary">시(도)/구(동)(ArrayList)</a> &nbsp;
     <a href="${ctp}/study/ajax/ajaxTest3" class="btn btn-secondary">시(도)/구(동)(String)</a>
   </p>
+  <hr/>
+  <p>
+    <a href="${ctp}/study/ajax/ajaxTest4" class="btn btn-secondary">회원정보검색</a>
+  </p>
 </div>
 <br/>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

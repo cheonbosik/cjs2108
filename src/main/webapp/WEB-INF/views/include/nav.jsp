@@ -15,6 +15,7 @@
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
 	        <a href="${ctp}/study/fileUpload" class="w3-bar-item w3-button">파일업로드</a>
 	        <a href="${ctp}/study/ajax/ajaxMenu" class="w3-bar-item w3-button">Ajax연습</a>
+	        <a href="${ctp}/study/goods" class="w3-bar-item w3-button">상품등록</a>
 	        <a href="${ctp}/study/uuid" class="w3-bar-item w3-button">UUID연습</a>
 	        <a href="${ctp}/study/shop" class="w3-bar-item w3-button">미니쇼핑몰</a>
 	      </div>

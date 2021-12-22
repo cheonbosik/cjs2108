@@ -2,16 +2,21 @@ package com.spring.cjs2108;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.service.StudyService;
+import com.spring.cjs2108.vo.Goods1VO;
+import com.spring.cjs2108.vo.Goods2VO;
+import com.spring.cjs2108.vo.Goods3VO;
 import com.spring.cjs2108.vo.MemberVO;
 
 @Controller
@@ -103,6 +108,29 @@ public class StudyController {
 //		System.out.println("vos: " + vos);
 //		return vos;
 		return studyService.getMemberVos(mid);
+	}
+	
+	@RequestMapping("/goods")
+	public String goodsGet(Model model) {
+		List<Goods1VO> vos = studyService.getProduct1();
+		model.addAttribute("vos", vos);
+		return "study/ajax/goods";
+	}
+	
+	// 대분류선택시
+	@ResponseBody
+	@RequestMapping(value="/goods1", method = RequestMethod.POST)
+	public ArrayList<Goods2VO> goods1Post(String product1) {
+//		ArrayList<Goods2VO> vos = studyService.getProduct2(product1);
+//		return vos;
+		return studyService.getProduct2(product1);
+	}
+	
+	// 중분류선택시
+	@ResponseBody
+	@RequestMapping(value="/goods2", method = RequestMethod.POST)
+	public ArrayList<Goods3VO> goods2Post(Goods2VO vo) {
+		return studyService.getProduct3(vo.getProduct1(), vo.getProduct2());
 	}
 	
 	@RequestMapping(value="/uuid", method = RequestMethod.GET)

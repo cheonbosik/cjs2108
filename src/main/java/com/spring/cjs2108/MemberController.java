@@ -3,6 +3,7 @@ package com.spring.cjs2108;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value="/memLogin", method = RequestMethod.GET)
 	public String memLoginGet() {
@@ -61,5 +65,10 @@ public class MemberController {
 		msgFlag = "memLogout";
 		
 		return "redirect:/msg/" + msgFlag;
+	}
+	
+	@RequestMapping(value="/memInput")
+	public String memInputGet() {
+		return "member/memInput";
 	}
 }

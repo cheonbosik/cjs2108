@@ -1,9 +1,9 @@
 package com.spring.cjs2108.service;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.dao.MemberDAO;
 import com.spring.cjs2108.dao.StudyDAO;
+import com.spring.cjs2108.vo.Goods1VO;
+import com.spring.cjs2108.vo.Goods2VO;
+import com.spring.cjs2108.vo.Goods3VO;
 import com.spring.cjs2108.vo.MemberVO;
 
 @Service
@@ -162,6 +165,21 @@ public class StudyServiceImpl implements StudyService {
 		FileOutputStream fos = new FileOutputStream(uploadPath + saveFileName);
 		fos.write(data);
 		fos.close();
+	}
+
+	@Override
+	public List<Goods1VO> getProduct1() {
+		return studyDAO.getProduct1();
+	}
+
+	@Override
+	public ArrayList<Goods2VO> getProduct2(String product1) {
+		return studyDAO.getProduct2(product1);
+	}
+
+	@Override
+	public ArrayList<Goods3VO> getProduct3(String product1, String product2) {
+		return studyDAO.getProduct3(product1, product2);
 	}
 	
 }

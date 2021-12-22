@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cjs2108.dao.StudyDAO">
-
+	<select id="getProduct1" resultType="com.spring.cjs2108.vo.Goods1VO">
+		select * from goods1;
+	</select>
+	 
+	<select id="getProduct2" resultType="com.spring.cjs2108.vo.Goods2VO">
+		select * from goods2 where product1 = #{product1};
+	</select> 
+	 
+	<select id="getProduct3" resultType="com.spring.cjs2108.vo.Goods3VO">
+		select * from goods3 where product1 = #{product1} and product2 = #{product2};
+	</select> 
 </mapper>

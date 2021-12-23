@@ -1,5 +1,6 @@
 package com.spring.cjs2108.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -40,13 +41,17 @@ public class MemberServiceImpl implements MemberService {
 	public int setMemInput(MultipartFile fName, MemberVO vo) {
 		int res = 0;
 		try {
-			// 회원사진을 업로드처리하기위해 중복파일명처리와 업로드처리
-			UUID uid = UUID.randomUUID();
 			String oFileName = fName.getOriginalFilename();
-			String saveFileName = uid + "_" + oFileName;
-			writeFile(fName, saveFileName);
-			vo.setPhoto(saveFileName);
-			
+			if(oFileName != "" && oFileName != null) {
+				// 회원사진을 업로드처리하기위해 중복파일명처리와 업로드처리
+				UUID uid = UUID.randomUUID();
+				String saveFileName = uid + "_" + oFileName;
+				writeFile(fName, saveFileName);
+				vo.setPhoto(saveFileName);
+			}
+			else {
+				vo.setPhoto("noimage.jpg");
+			}
 			// 회원사진을 정상적으로 업로드마치고나면 회원정보를 DB에 넣어준다.
 			memberDAO.setMemInput(vo);
 			res = 1;
@@ -66,6 +71,39 @@ public class MemberServiceImpl implements MemberService {
 		FileOutputStream fos = new FileOutputStream(uploadPath + saveFileName);
 		fos.write(data);
 		fos.close();
+	}
+
+	@Override
+	public int setMemUpdate(MultipartFile fName, MemberVO vo) {
+		int res = 0;
+		try {
+			// 정보수정중 사진을 새로 업로드 하였을 경우 아래 if문장을 처리한다.
+			String oFileName = fName.getOriginalFilename();
+			if(oFileName != "" && oFileName != null) {
+				// 기존에 존재하는 회원사진을 삭제처리한다.
+				HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/member/");
+				if(!vo.getPhoto().equals("noimage.jpg")) {
+					new File(uploadPath + vo.getPhoto()).delete();
+				}
+				UUID uid = UUID.randomUUID();
+				String saveFileName = uid + "_" + oFileName;
+				writeFile(fName, saveFileName);
+				vo.setPhoto(saveFileName);
+			}
+			
+			// 회원사진을 정상적으로 업로드마치고나면 회원정보를 DB에서 수정처리해준다.
+			memberDAO.setMemUpdate(vo);
+			res = 1;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public void setMemDelete(String mid) {
+		memberDAO.setMemDelete(mid);
 	}
 
 }

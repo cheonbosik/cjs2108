@@ -13,4 +13,8 @@ public interface MemberService {
 
 	public int setMemInput(MultipartFile fName, MemberVO vo);
 
+	public int setMemUpdate(MultipartFile fName, MemberVO vo);
+
+	public void setMemDelete(String mid);
+
 }

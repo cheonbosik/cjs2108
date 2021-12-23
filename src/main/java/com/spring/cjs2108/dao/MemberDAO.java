@@ -17,5 +17,9 @@ public interface MemberDAO {
 
 	public void setMemInput(@Param("vo") MemberVO vo);
 
+	public void setMemUpdate(@Param("vo") MemberVO vo);
+
+	public void setMemDelete(@Param("mid") String mid);
+
 
 }

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ public class MemberController {
 	public String memLoginPost(String mid, String pwd, HttpSession session) {
 		MemberVO vo = memberService.getIdCheck(mid);
 		
-		if(vo != null) {
+		if(vo != null && passwordEncoder.matches(pwd, vo.getPwd()) && vo.getUserDel().equals("NO")) {
 			String strLevel = "";
 		  if(vo.getLevel() == 0) strLevel = "관리자";
 		  else if(vo.getLevel() == 1) strLevel = "특별회원";
@@ -121,5 +122,70 @@ public class MemberController {
 		MemberVO vo = memberService.getNickNameCheck(nickName);
 		if(vo != null) res = "1";
 		return res;
+	}
+	
+	@RequestMapping(value="/memPwdCheck", method = RequestMethod.GET)
+	public String memPwdCheckGet() {
+		return "member/memPwdCheck";
+	}
+	
+	@RequestMapping(value="/memPwdCheck", method = RequestMethod.POST)
+	public String memPwdCheckPost(String pwd, HttpSession session, Model model) {
+		String mid = (String) session.getAttribute("sMid");
+		MemberVO vo = memberService.getIdCheck(mid);
+		if(vo != null && passwordEncoder.matches(pwd, vo.getPwd())) {
+			session.setAttribute("sPwd", pwd);
+			model.addAttribute("vo", vo);
+			return "member/memUpdate";
+		}
+		else {
+			msgFlag = "pwdCheckNo";
+			return "redirect:/msg/" + msgFlag;
+		}
+	}
+	
+	// 회원정보변경폼 불러오기
+	@RequestMapping(value="/memUpdate", method = RequestMethod.GET)
+	public String memUpdateGet(Model model, HttpSession session) {
+		String mid = (String) session.getAttribute("sMid");
+		MemberVO vo = memberService.getIdCheck(mid);
+		model.addAttribute("vo", vo);
+		return "member/memUpdate";
+	}
+	
+	// 회원 정보 변경하기
+	@RequestMapping(value="/memUpdate", method = RequestMethod.POST)
+	public String memUpdatePost(MultipartFile fName, MemberVO vo, HttpSession session) {
+		String nickName = (String) session.getAttribute("sNickName");
+		
+		// 닉네임 중복체크하기(닉네임이 변경되었으면 새롭게 닉네임을 세션에 등록시켜준다.)
+		if(!nickName.equals(vo.getNickName())) {
+			if(memberService.getNickNameCheck(vo.getNickName()) != null) {
+				msgFlag = "memNickNameCheckNo";
+				return "redirect:/msg/" + msgFlag;
+			}
+			else {
+				session.setAttribute("sNickName", vo.getNickName());
+			}
+		}
+		vo.setPwd(passwordEncoder.encode(vo.getPwd()));
+		
+		int res = memberService.setMemUpdate(fName, vo);
+		
+		if(res == 1) {
+			msgFlag = "memUpdateOk";
+		}
+		else {
+			msgFlag = "memUpdateNo";
+		}
+		return "redirect:/msg/" + msgFlag;
+	}
+	
+	@RequestMapping(value="/memDelete")
+	public String memDeleteGet(HttpSession session) {
+		String mid = (String) session.getAttribute("sMid");
+		memberService.setMemDelete(mid);
+		msgFlag = "memDeleteOk";
+		return "redirect:/msg/" + msgFlag;
 	}
 }

@@ -141,7 +141,7 @@
     			
     			// 사진파일 업로드 체크
     			if(fName.trim() == "") {
-		    		myform.photo.value = "noimage";
+		    		myform.photo.value = "noimage.jpg";
 		    	}
     			else {
 			    	var fileSize = document.getElementById("fName").files[0].size;

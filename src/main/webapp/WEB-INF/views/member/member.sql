@@ -19,7 +19,7 @@ create table member2 (
 	userInfor char(6) default '공개',		/* 회원 정보 공개여부(공개/비공개) */
 	userDel		char(2) default 'NO',			/* 회원 탈퇴 신청 여부(OK:탈퇴신청한회원, NO:현재가입중인회원) */
 	point     int default 100,					/* 포인트(최초가입회원은 100, 한번 방문시마다 10 */
-	level			int default 1,						/* 1:준회원, 2:정회원, 3:우수회원 (4:운영자) 0:관리자 */
+	level			int default 4,						/* 1:특별회원, 2:우수회원, 3:정회원, 4:준회원, 0:관리자 */
 	visitCnt	int default 0,						/* 방문횟수 */
 	startDate datetime default now(),		/* 최초 가입일 */
 	lastDate  datetime default now(),		/* 마지막 접속일 */

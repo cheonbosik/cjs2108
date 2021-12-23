@@ -61,6 +61,23 @@ public class MessageController {
 			model.addAttribute("msg", "회원 가입실패~~~");
 			model.addAttribute("url", "member/memInput");
 		}
+		else if(msgFlag.equals("pwdCheckNo")) {
+			model.addAttribute("msg", "비밀번호를 확인하세요.");
+			model.addAttribute("url", "member/memPwdCheck");
+		}
+		else if(msgFlag.equals("memUpdateOk")) {
+			model.addAttribute("msg", "회원정보가 수정되었습니다.");
+			model.addAttribute("url", "member/memUpdate");
+		}
+		else if(msgFlag.equals("memUpdateNo")) {
+			model.addAttribute("msg", "회원정보가 수정 실패~~~");
+			model.addAttribute("url", "member/memUpdate");
+		}
+		else if(msgFlag.equals("memDeleteOk")) {
+			session.invalidate();
+			model.addAttribute("msg", nickName + "회원님 탈퇴 되셨습니다.\\n1개월간 같은 아이디로 가입불가입니다.");
+			model.addAttribute("url", "/");
+		}
 		
 		
 		

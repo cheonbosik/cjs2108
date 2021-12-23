@@ -13,5 +13,9 @@ public interface MemberDAO {
 	
 	public MemberVO getIdCheck(@Param("mid") String mid);		// member2테이블을 mid로 검색
 
+	public MemberVO getNickNameCheck(@Param("nickName") String nickName);
+
+	public void setMemInput(@Param("vo") MemberVO vo);
+
 
 }

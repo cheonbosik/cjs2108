@@ -2,6 +2,7 @@
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <%
   Date today = new Date();
   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -20,34 +21,62 @@
   	var idCheckOn = 0;
   	var nickCheckOn = 0;
   
-  	// 아이디 중복체크
+  	// 아이디 중복체크(aJax처리)
     function idCheck() {
-    	var mid = myform.mid.value;
-    	var url = "<%=request.getContextPath()%>/idCheck.mem?mid="+mid;
-    	
-    	if(mid=="") {
-    		alert("아이디를 입력하세요!");
+    	var mid = $("#mid").val();
+    	if(mid=="" || $("#mid").val().length<4 || $("#mid").val().length>20) {
+    		alert("아이디를 체크하세요!(아이디는 4~20자 이내로 사용하세요.)");
     		myform.mid.focus();
+    		return false;
     	}
-    	else {
-    		idCheckOn = 1;
-    		window.open(url,"nWin","width=500px,height=250px");
-    	}
+    	
+    	$.ajax({
+    		type : "post",
+    		url  : "${ctp}/member/idCheck",
+    		data : {mid : mid},
+    		success:function(data) {
+    			if(data == "1") {
+    				alert("이미 사용중인 아이디 입니다.");
+    				$("#mid").focus();
+    			}
+    			else {
+    				alert("사용 가능한 아이디 입니다.");
+    				idCheckOn = 1;	// 아이디 검색버튼을 클릭한경우는 idCheckOn값이 1이 된다.
+    			}
+    		},
+    		error : function() {
+    			alert("전송오류!");
+    		}
+    	});
     }
     
   	// 닉네임 중복체크
     function nickCheck() {
-    	var nickName = myform.nickName.value;
-    	var url = "<%=request.getContextPath()%>/nickCheck.mem?nickName="+nickName;
-    	
-    	if(nickName=="") {
-    		alert("닉네임을 입력하세요!");
+    	var nickName = $("#nickName").val();
+    	if(nickName=="" || $("#nickName").val().length<2 || $("#nickName").val().length>20) {
+    		alert("닉네임을 체크하세요!(닉네임은 2~20자 이내로 사용하세요.)");
     		myform.nickName.focus();
+    		return false;
     	}
-    	else {
-    		nickCheckOn = 1;
-    		window.open(url,"nWin","width=500px,height=250px");
-    	}
+    	
+    	$.ajax({
+    		type : "post",
+    		url  : "${ctp}/member/nickNameCheck",
+    		data : {nickName : nickName},
+    		success:function(data) {
+    			if(data == "1") {
+    				alert("이미 사용중인 닉네임 입니다.");
+    				$("#nickName").focus();
+    			}
+    			else {
+    				alert("사용 가능한 닉네임 입니다.");
+    				nickCheckOn = 1;	// 닉네임 검색버튼을 클릭한경우는 nickCheckOn값이 1이 된다.
+    			}
+    		},
+    		error : function() {
+    			alert("전송오류!");
+    		}
+    	});
     }
   	
   	function idReset() {
@@ -60,11 +89,15 @@
     
   	// 회원가입폼 체크
     function fCheck() {
+  		// 정규식체크할것~~~~(이곳에선 생략했음...)
+  		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; // 이메일 체크
+  		
     	var mid = myform.mid.value;
     	var pwd = myform.pwd.value;
     	var nickName = myform.nickName.value;
     	var name = myform.name.value;
-    	var email1 = myform.email1.value;
+    	var email = myform.email1.value + "@" + myform.email2.value;
+    	var tel = myform.tel1.value + "-" + myform.tel2.value + "-" + myform.tel3.value;
     	
     	// 회원 사진 업로드
     	var fName = myform.fName.value;
@@ -88,26 +121,30 @@
     		alert("성명을 입력하세요");
     		myform.name.focus();
     	}
-    	else if(email1 == "") {
-    		alert("이메일을 입력하세요");
+    	else if(!regExpEmail.test(email)) {
+    		alert("이메일을 확인하세요");
     		myform.email1.focus();
     	}
     	// 기타 추가 체크해야 할 항목들을 모두 체크하세요.
     	else {
     		if(idCheckOn == 1 && nickCheckOn == 1) {
     			//alert("입력처리 되었습니다.!");
-    			var postcode = myform.postcode.value + " ";
-    			var roadAddress = myform.roadAddress.value + " ";
-    			var detailAddress = myform.detailAddress.value + " ";
-    			var extraAddress = myform.extraAddress.value + " ";
-    			myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress
+    			var postcode = myform.postcode.value;
+    			var roadAddress = myform.roadAddress.value;
+    			var detailAddress = myform.detailAddress.value;
+    			var extraAddress = myform.extraAddress.value;
+    			var address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress
+    			if(address == "///") address = "";
+    			myform.address.value = address;
+    			myform.email.value = email;
+    			myform.tel.value = tel;
     			
     			// 사진파일 업로드 체크
     			if(fName.trim() == "") {
 		    		myform.photo.value = "noimage";
 		    	}
     			else {
-			    	var fileSize = document.getElementById("file").files[0].size;
+			    	var fileSize = document.getElementById("fName").files[0].size;
 			    	
 			    	if(uExt != "JPG" && uExt != "GIF" && uExt != "PNG") {
 			    		alert("업로드 가능한 파일은 'JPG/GIF/PNG");
@@ -311,6 +348,8 @@
     <button type="reset" class="btn btn-secondary">다시작성</button>
     <button type="button" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/member/memLogin';">돌아가기</button>
     <input type="hidden" name="photo"/>
+    <input type="hidden" name="email"/>
+    <input type="hidden" name="tel"/>
   </form>
   <p><br/></p>
 </div>

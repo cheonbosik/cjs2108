@@ -13,5 +13,12 @@
 		select * from member2 where mid = #{mid};
 	</select>
 	
+	<select id="getNickNameCheck" resultType="com.spring.cjs2108.vo.MemberVO">
+		select * from member2 where nickName = #{nickName};
+	</select>
+	
+	<insert id="setMemInput">
+		insert into member2 values (default,#{vo.mid},#{vo.pwd},#{vo.nickName},#{vo.name},#{vo.gender},#{vo.birthday},#{vo.tel},#{vo.address},#{vo.email},#{vo.homePage},#{vo.job},#{vo.hobby},#{vo.photo},#{vo.content},default,default,default,default,default,default,default,default);
+	</insert>
 	
 </mapper>

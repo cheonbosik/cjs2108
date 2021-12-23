@@ -110,6 +110,7 @@ public class StudyController {
 		return studyService.getMemberVos(mid);
 	}
 	
+	// 상품등록테스트화면(대/중/소/상품명 등록창)
 	@RequestMapping("/goods")
 	public String goodsGet(Model model) {
 		List<Goods1VO> vos = studyService.getProduct1();

@@ -23,7 +23,7 @@ create table member2 (
 	visitCnt	int default 0,						/* 방문횟수 */
 	startDate datetime default now(),		/* 최초 가입일 */
 	lastDate  datetime default now(),		/* 마지막 접속일 */
-	todayCnt  int default 0,						/* 오늘 방문한 횟수 */
+	todefault,dayCnt  int default 0,						/* 오늘 방문한 횟수 */
 	primary key(idx, mid)								/* 키본키 : 고유번호, 아이디 */
 );
 

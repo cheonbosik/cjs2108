@@ -45,6 +45,22 @@ public class MessageController {
 			model.addAttribute("msg", "파일 업로드 실패~~~");
 			model.addAttribute("url", "study/fileUpload");
 		}
+		else if(msgFlag.equals("memIdCheckNo")) {
+			model.addAttribute("msg", "아이디가 중복되었습니다.");
+			model.addAttribute("url", "member/memInput");
+		}
+		else if(msgFlag.equals("memNickNameCheckNo")) {
+			model.addAttribute("msg", "닉네임이 중복되었습니다.");
+			model.addAttribute("url", "member/memInput");
+		}
+		else if(msgFlag.equals("memInputOk")) {
+			model.addAttribute("msg", "회원 가입되었습니다.");
+			model.addAttribute("url", "member/memLogin");
+		}
+		else if(msgFlag.equals("memInputNo")) {
+			model.addAttribute("msg", "회원 가입실패~~~");
+			model.addAttribute("url", "member/memInput");
+		}
 		
 		
 		

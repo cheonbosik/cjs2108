@@ -29,4 +29,16 @@
 		update member2 set userDel = 'OK' where mid = #{mid};
 	</update>
 	
+	<select id="getPwdConfirm" resultType="com.spring.cjs2108.vo.MemberVO">
+		select * from member2 where mid = #{mid} and email = #{toMail};
+	</select>
+	
+	<update id="setPwdChange">
+	  update member2 set pwd = #{pwd} where mid = #{mid};
+	</update>
+	
+	<select id="getIdConfirm" resultType="com.spring.cjs2108.vo.MemberVO">
+		select * from member2 where email = #{toMail} limit 1;
+	</select>
+	
 </mapper>

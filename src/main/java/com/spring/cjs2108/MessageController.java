@@ -78,6 +78,22 @@ public class MessageController {
 			model.addAttribute("msg", nickName + "회원님 탈퇴 되셨습니다.\\n1개월간 같은 아이디로 가입불가입니다.");
 			model.addAttribute("url", "/");
 		}
+		else if(msgFlag.equals("mailSendOk")) {
+			model.addAttribute("msg", "메일이 전송되었습니다.");
+			model.addAttribute("url", "mail/mailForm");
+		}
+		else if(msgFlag.equals("pwdConfirmOk")) {
+			model.addAttribute("msg", "임시비밀번호가 메일로 전송되었습니다.\\n메일을 확인하세요.");
+			model.addAttribute("url", "member/memLogin");
+		}
+		else if(msgFlag.equals("pwdConfirmNo")) {
+			model.addAttribute("msg", "사용자 정보를 확인하세요.");
+			model.addAttribute("url", "member/memLogin");
+		}
+		else if(msgFlag.equals("idConfirmOk")) {
+			model.addAttribute("msg", "아이디를 메일로 전송하였습니다.\\n메일을 확인하세요.");
+			model.addAttribute("url", "member/memLogin");
+		}
 		
 		
 		

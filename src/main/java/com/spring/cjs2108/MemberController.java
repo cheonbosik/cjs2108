@@ -1,5 +1,10 @@
 package com.spring.cjs2108;
 
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +32,24 @@ public class MemberController {
 	
 	// 로그인폼 호출
 	@RequestMapping(value="/memLogin", method = RequestMethod.GET)
-	public String memLoginGet() {
+	public String memLoginGet(HttpServletRequest request) {
+		// 로그인폼 호출시 기존에 저장된 쿠키가 있으면 불러올수 있게 한다.
+		Cookie[] cookies = request.getCookies();	// 기존에 저장된 현재 사이트의 쿠키를 불러와서 배열로 저장한다.
+		String mid = "";
+		for(int i=0; i<cookies.length; i++) {
+			if(cookies[i].getName().equals("cMid")) {
+				mid = cookies[i].getValue();
+				request.setAttribute("mid", mid);
+				break;
+			}
+		}
+		
 		return "member/memLogin";
 	}
 	
 	// 로그인 인증처리
 	@RequestMapping(value="/memLogin", method = RequestMethod.POST)
-	public String memLoginPost(String mid, String pwd, HttpSession session) {
+	public String memLoginPost(String mid, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		MemberVO vo = memberService.getIdCheck(mid);
 		
 		if(vo != null && passwordEncoder.matches(pwd, vo.getPwd()) && vo.getUserDel().equals("NO")) {
@@ -49,7 +65,25 @@ public class MemberController {
 			session.setAttribute("sLevel", vo.getLevel());
 			session.setAttribute("sStrLevel", strLevel);
 			
-			// 쿠키 처리
+			// 아이디에 대한 정보를 쿠키로 저장처리...
+			String idCheck = request.getParameter("idCheck")==null? "" : request.getParameter("idCheck");
+			
+			// 쿠키 처리(아이디에 대한 정보를 쿠키로 저장할지를 처리한다)-jsp에서 idCheck변수에 값이 체크되어서 넘어오면 'on'값이 담겨서 넘어오게 된다.
+			if(idCheck.equals("on")) {				// 앞의 jsp에서 쿠키를 저장하겠다고 넘겼을경우...
+				Cookie cookie = new Cookie("cMid", mid);
+				cookie.setMaxAge(60*60*24*4); 	// 쿠키의 만료시간을 4일로 정했다.(단위: 초)
+				response.addCookie(cookie);
+			}
+			else {		// jsp에서 쿠키저장을 취소해서 보낸다면? 쿠키명을 삭제처리한다.
+				Cookie[] cookies = request.getCookies();	// 기존에 저장되어 있는 현재 사이트의 쿠키를 불러와서 배열로 저장한다.
+				for(int i=0; i<cookies.length; i++) {
+					if(cookies[i].getName().equals("cMid")) {
+						cookies[i].setMaxAge(0);		//  저장된 쿠키명중 'cMid' 쿠키를 찾아서 삭제한다.
+						response.addCookie(cookies[i]);
+						break;
+					}
+				}
+			}
 			
 			msgFlag = "memLoginOk";
 		}
@@ -188,4 +222,49 @@ public class MemberController {
 		msgFlag = "memDeleteOk";
 		return "redirect:/msg/" + msgFlag;
 	}
+
+	// 비밀번호 찾기 폼
+	@RequestMapping(value="/pwdConfirm", method = RequestMethod.GET)
+	public String pwdConfirmGet() {
+		return "member/pwdConfirm";
+	}
+	
+	// 임시 비밀번호 발급해서 메일로 보낼 준비처리
+	@RequestMapping(value="/pwdConfirm", method = RequestMethod.POST)
+	public String pwdConfirmPost(String mid, String toMail) {
+		MemberVO vo = memberService.getPwdConfirm(mid, toMail);
+		if(vo != null) {
+			// 임시비밀번호를 만들자
+			UUID uid = UUID.randomUUID();
+			String pwd = uid.toString().substring(0,8);
+			memberService.setPwdChange(mid, passwordEncoder.encode(pwd));
+			String content = pwd;
+			//return "redirect:mail/pwdConfirmSend?toMail="+toMail+"&content="+content;
+			return "redirect:/mail/pwdConfirmSend/"+toMail+"/"+content+"/";
+		}
+		else {
+			msgFlag = "pwdConfirmNo";
+			return "redirect:/msg/" + msgFlag;
+		}
+	}
+	
+	// 아이디 찾기 폼
+	@RequestMapping(value="/idConfirm", method = RequestMethod.GET)
+	public String idConfirmGet() {
+		return "member/idConfirm";
+	}
+	
+	// 아이디를 찾아서 메일로 보낼 준비처리
+	@RequestMapping(value="/idConfirm", method = RequestMethod.POST)
+	public String idConfirmPost(String toMail) {
+		MemberVO vo = memberService.getIdConfirm(toMail);
+		if(vo != null) {
+			return "redirect:/mail/idConfirmSend/"+toMail+"/"+vo.getMid()+"/";
+		}
+		else {
+			msgFlag = "pwdConfirmNo";
+			return "redirect:/msg/" + msgFlag;
+		}
+	}
+	
 }

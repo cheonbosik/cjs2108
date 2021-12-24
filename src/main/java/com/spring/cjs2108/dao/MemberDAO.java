@@ -21,5 +21,11 @@ public interface MemberDAO {
 
 	public void setMemDelete(@Param("mid") String mid);
 
+	public MemberVO getPwdConfirm(@Param("mid") String mid, @Param("toMail") String toMail);
+
+	public void setPwdChange(@Param("mid") String mid, @Param("pwd") String pwd);
+
+	public MemberVO getIdConfirm(@Param("toMail") String toMail);
+
 
 }

@@ -34,6 +34,9 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/security/spring-security-crypto/5.6.0/spring-security-crypto-5.6.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/security/spring-security-web/5.6.0/spring-security-web-5.6.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/security/spring-security-config/5.6.0/spring-security-config-5.6.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/javax/mail/mail/1.4.7/mail-1.4.7.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-context-support/5.3.13/spring-context-support-5.3.13.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="D:\JavaCourse\Utility\apache-tomcat-9.0.54\lib\annotations-api.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="D:\JavaCourse\Utility\apache-tomcat-9.0.54\lib\catalina-ant.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="D:\JavaCourse\Utility\apache-tomcat-9.0.54\lib\catalina-ha.jar" enabled="true" runInBatchMode="false"/>

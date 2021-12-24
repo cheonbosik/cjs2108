@@ -17,4 +17,10 @@ public interface MemberService {
 
 	public void setMemDelete(String mid);
 
+	public MemberVO getPwdConfirm(String mid, String toMail);
+
+	public void setPwdChange(String mid, String pwd);
+
+	public MemberVO getIdConfirm(String toMail);
+
 }

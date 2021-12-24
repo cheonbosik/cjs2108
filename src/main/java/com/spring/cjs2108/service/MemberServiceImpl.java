@@ -106,4 +106,19 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.setMemDelete(mid);
 	}
 
+	@Override
+	public MemberVO getPwdConfirm(String mid, String toMail) {
+		return memberDAO.getPwdConfirm(mid, toMail);
+	}
+
+	@Override
+	public void setPwdChange(String mid, String pwd) {
+		memberDAO.setPwdChange(mid, pwd);
+	}
+
+	@Override
+	public MemberVO getIdConfirm(String toMail) {
+		return memberDAO.getIdConfirm(toMail);
+	}
+
 }

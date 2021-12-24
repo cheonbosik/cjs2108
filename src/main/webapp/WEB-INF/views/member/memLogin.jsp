@@ -37,7 +37,7 @@
 				  <button type="button" onclick="location.href='${ctp}/member/memInput';" class="btn btn-primary">회원가입</button><br/>
 				  <div class="row" style="font-size:12px;">
 				    <span class="col mt-3"><input type="checkbox" name="idCheck" checked/> 아이디 저장</span>
-				    <span class="col mt-3">[<a href="#">아이디찾기</a>] / [<a href="#">비밀번호찾기</a>]</span>
+				    <span class="col mt-3">[<a href="${ctp}/member/idConfirm">아이디찾기</a>] / [<a href="${ctp}/member/pwdConfirm">비밀번호찾기</a>]</span>
 				  </div>
 				</form>
 			</div>

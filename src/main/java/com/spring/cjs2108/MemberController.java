@@ -86,6 +86,9 @@ public class MemberController {
 				}
 			}
 			
+			// 로그인 인증후에 방문수 증가, 최종 방문일자/시간 업데이트
+			memberService.setVisitUpdate(mid);
+			
 			msgFlag = "memLoginOk";
 		}
 		else {
@@ -268,7 +271,7 @@ public class MemberController {
 //		}
 //	}
 	
-  // 아이디를 찾아서 메일로 보낼 준비처리
+  // 아이디를 찾아서 화면에 리스트로 출력처리준비하는곳
 	@RequestMapping(value="/idConfirm", method = RequestMethod.POST)
 	public String idConfirmPost(String toMail, Model model) {
 		ArrayList<MemberVO> vos = memberService.getIdConfirm(toMail);

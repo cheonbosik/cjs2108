@@ -16,12 +16,12 @@
 <div class="container">
   <h2>검색된 아이디 리스트</h2>
   <hr/>
-  <p>입력하신 이메일주소로 검색된 아이디는 아래와 같습니다.</p>
+  <p>입력하신 이메일주소(<font color="red">${vos[0].email}</font>)로 검색된 아이디는 아래와 같습니다.</p>
   <hr/>
   <div>
     <c:forEach var="vo" items="${vos}" varStatus="st">
       <c:set var="mid1" value="${fn:substring(vo.mid,0,2)}"/>
-      <c:set var="mid2" value="${fn:substring(vo.mid,2,fn:length(vo.mid))}"/>
+      <c:set var="mid2" value="${fn:substring(vo.mid,4,fn:length(vo.mid))}"/>
       <p>${st.count}. <font color="blue">${mid1}**${mid2}</font></p>
     </c:forEach>
     <hr/>

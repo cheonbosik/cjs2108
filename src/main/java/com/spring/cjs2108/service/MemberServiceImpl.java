@@ -122,4 +122,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getIdConfirm(toMail);
 	}
 
+	@Override
+	public void setVisitUpdate(String mid) {
+		memberDAO.setVisitUpdate(mid);
+	}
+
 }

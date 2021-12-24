@@ -27,5 +27,7 @@ public interface MemberDAO {
 
 	public ArrayList<MemberVO> getIdConfirm(@Param("toMail") String toMail);
 
+	public void setVisitUpdate(@Param("mid") String mid);
+
 
 }

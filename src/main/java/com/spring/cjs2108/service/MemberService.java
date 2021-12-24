@@ -25,4 +25,6 @@ public interface MemberService {
 
 	public ArrayList<MemberVO> getIdConfirm(String toMail);
 
+	public void setVisitUpdate(String mid);
+
 }

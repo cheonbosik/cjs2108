@@ -48,4 +48,7 @@
 		select * from member2 where email = #{toMail};
 	</select>
 	
+	<update id="setVisitUpdate">
+		update member2 set visitCnt=visitCnt+1, lastDate=now() where mid=#{mid};
+	</update>
 </mapper>

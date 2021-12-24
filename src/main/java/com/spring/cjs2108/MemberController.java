@@ -1,5 +1,6 @@
 package com.spring.cjs2108;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -254,12 +255,26 @@ public class MemberController {
 		return "member/idConfirm";
 	}
 	
-	// 아이디를 찾아서 메일로 보낼 준비처리
+	// 아이디를 찾아서 메일로 보낼 준비처리(여기서는 사용하지 않았음.....)
+//	@RequestMapping(value="/idConfirm", method = RequestMethod.POST)
+//	public String idConfirmPost(String toMail) {
+//		MemberVO vo = memberService.getIdConfirm(toMail);
+//		if(vo != null) {
+//			return "redirect:/mail/idConfirmSend/"+toMail+"/"+vo.getMid()+"/";
+//		}
+//		else {
+//			msgFlag = "pwdConfirmNo";
+//			return "redirect:/msg/" + msgFlag;
+//		}
+//	}
+	
+  // 아이디를 찾아서 메일로 보낼 준비처리
 	@RequestMapping(value="/idConfirm", method = RequestMethod.POST)
-	public String idConfirmPost(String toMail) {
-		MemberVO vo = memberService.getIdConfirm(toMail);
-		if(vo != null) {
-			return "redirect:/mail/idConfirmSend/"+toMail+"/"+vo.getMid()+"/";
+	public String idConfirmPost(String toMail, Model model) {
+		ArrayList<MemberVO> vos = memberService.getIdConfirm(toMail);
+		if(vos.size() != 0) {
+			model.addAttribute("vos", vos);
+			return "member/idSearchList";
 		}
 		else {
 			msgFlag = "pwdConfirmNo";

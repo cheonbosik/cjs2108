@@ -1,5 +1,7 @@
 package com.spring.cjs2108.service;
 
+import java.util.ArrayList;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.vo.MemberVO;
@@ -21,6 +23,6 @@ public interface MemberService {
 
 	public void setPwdChange(String mid, String pwd);
 
-	public MemberVO getIdConfirm(String toMail);
+	public ArrayList<MemberVO> getIdConfirm(String toMail);
 
 }

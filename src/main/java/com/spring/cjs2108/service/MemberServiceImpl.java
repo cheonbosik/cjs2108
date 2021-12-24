@@ -3,6 +3,7 @@ package com.spring.cjs2108.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,7 +118,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getIdConfirm(String toMail) {
+	public ArrayList<MemberVO> getIdConfirm(String toMail) {
 		return memberDAO.getIdConfirm(toMail);
 	}
 

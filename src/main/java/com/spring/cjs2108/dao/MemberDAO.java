@@ -25,7 +25,7 @@ public interface MemberDAO {
 
 	public void setPwdChange(@Param("mid") String mid, @Param("pwd") String pwd);
 
-	public MemberVO getIdConfirm(@Param("toMail") String toMail);
+	public ArrayList<MemberVO> getIdConfirm(@Param("toMail") String toMail);
 
 
 }

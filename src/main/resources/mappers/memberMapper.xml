@@ -37,8 +37,15 @@
 	  update member2 set pwd = #{pwd} where mid = #{mid};
 	</update>
 	
+	<!-- 아래 getIdConfirm은 여기서 사용하지는 않았음... -->
+	<!-- 
 	<select id="getIdConfirm" resultType="com.spring.cjs2108.vo.MemberVO">
 		select * from member2 where email = #{toMail} limit 1;
+	</select>
+	 -->
+	
+	<select id="getIdConfirm" resultType="com.spring.cjs2108.vo.MemberVO">
+		select * from member2 where email = #{toMail};
 	</select>
 	
 </mapper>

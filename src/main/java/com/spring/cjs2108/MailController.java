@@ -105,7 +105,7 @@ public class MailController {
 		return "redirect:/msg/pwdConfirmOk";
 	}
 	
-	// 아이디를 찾아서 메일로 보낼 준비처리
+	// 아이디를 찾아서 메일로 보낼 준비처리(여기서는 사용하지 않았음.....)
 	@RequestMapping(value="/idConfirmSend/{toMail}/{content}/", method = RequestMethod.GET)
 	public String idConfirmPost(@PathVariable String toMail, @PathVariable String content) {
 		try {

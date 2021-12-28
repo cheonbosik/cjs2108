@@ -14,4 +14,6 @@ public interface GuestDAO {
 
 	public int totRecCnt();
 
+	public void setGuestDelete(@Param("idx") int idx);
+
 }

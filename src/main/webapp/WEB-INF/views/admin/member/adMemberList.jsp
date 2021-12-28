@@ -8,8 +8,27 @@
   <title>adMemberList.jsp</title>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp"/>
   <script>
-    function levelCheck() {
-    	alert("회원정보를 변경하시려면, '등급변경'버튼을 클릭하세요.")
+    // 회원 등급변경을 ajax로 처리해본다.
+    function levelCheck(obj) {
+    	var ans = confirm("회원등급을 변경하시겠습니까?");
+    	if(!ans) {
+    		location.reload();
+    		return false;
+    	}
+    	var str = $(obj).val();
+    	var query = {
+    			idx : str.substring(1),
+    			level : str.substring(0,1)
+    	}
+    	
+    	$.ajax({
+    		type : "post",
+    		url  : "${ctp}/admin/adMemberLevel",
+    		data : query,
+    		error:function() {
+    			alert("처리 실패!!");
+    		}
+    	});
     }
     
     // 회원 탈퇴처리(회원정보삭제)
@@ -98,17 +117,13 @@
     	  <td>${vo.visitCnt}</td>
     	  <td>${vo.lastDate}</td>
     	  <td>
-    	    <form name="levelForm" method="post" action="${ctp}/admin/adMemberLevel">
-    	      <select name="level" onchange="levelCheck()">
-    	        <option value="1" <c:if test="${vo.level==1}">selected</c:if>>특별회원</option>
-    	        <option value="2" <c:if test="${vo.level==2}">selected</c:if>>우수회원</option>
-    	        <option value="3" <c:if test="${vo.level==3}">selected</c:if>>정회원</option>
-    	        <option value="4" <c:if test="${vo.level==4}">selected</c:if>>준회원</option>
-    	        <option value="0" <c:if test="${vo.level==0}">selected</c:if>>관리자</option>
-    	      </select>
-    	      <input type="submit" value="등급변경" class="btn btn-secondary btn-sm"/>
-    	      <input type="hidden" name="idx" value="${vo.idx}"/>
-    	    </form>
+  	      <select name="level" onchange="levelCheck(this)">
+  	        <option value="1${vo.idx}" <c:if test="${vo.level==1}">selected</c:if>>특별회원</option>
+  	        <option value="2${vo.idx}" <c:if test="${vo.level==2}">selected</c:if>>우수회원</option>
+  	        <option value="3${vo.idx}" <c:if test="${vo.level==3}">selected</c:if>>정회원</option>
+  	        <option value="4${vo.idx}" <c:if test="${vo.level==4}">selected</c:if>>준회원</option>
+  	        <option value="0${vo.idx}" <c:if test="${vo.level==0}">selected</c:if>>관리자</option>
+  	      </select>
     	  </td>
     	  <td>${vo.userInfor=='비공개'?'<font color=blue>비공개</font>':'공개'}</td>
     	  <td>

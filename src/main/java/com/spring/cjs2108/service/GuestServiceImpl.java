@@ -27,4 +27,9 @@ public class GuestServiceImpl implements GuestService {
 	public int totRecCnt() {
 		return guestDAO.totRecCnt();
 	}
+
+	@Override
+	public void setGuestDelete(int idx) {
+		guestDAO.setGuestDelete(idx);
+	}
 }

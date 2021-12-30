@@ -33,6 +33,7 @@
 	    <div class="w3-dropdown-hover w3-hide-small">
 	      <button class="w3-padding-large w3-button" title="More">${sNickName} <i class="fa fa-caret-down"></i></button>     
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+	        <a href="${ctp}/member/memMain" class="w3-bar-item w3-button">회원메인</a>
 	        <a href="${ctp}/member/memList" class="w3-bar-item w3-button">회원리스트</a>
 	        <a href="${ctp}/member/memPwdCheck" class="w3-bar-item w3-button">정보수정</a>
 	        <a href="javascript:memDeleteCheck()" class="w3-bar-item w3-button">회원탈퇴</a>

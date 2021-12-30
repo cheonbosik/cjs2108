@@ -29,5 +29,11 @@ public interface MemberDAO {
 
 	public void setVisitUpdate(@Param("mid") String mid);
 
+	public void setLastDateUpdate(@Param("mid") String mid, @Param("newPoint") int newPoint, @Param("todayCnt") int todayCnt);
+
+	public int getGuestWriteCnt(@Param("mid") String mid, @Param("nickName") String nickName, @Param("name") String name);
+
+	public int getBoardWriteCnt(@Param("mid") String mid);
+
 
 }

@@ -34,8 +34,8 @@ public class MessageController {
 			model.addAttribute("url", "member/memLogin");
 		}
 		else if(msgFlag.equals("memberNo")) {
-			model.addAttribute("msg", nickName + "로그인후 사용하세요.");
-			model.addAttribute("url", "member/memLogin");
+			model.addAttribute("msg", nickName + "님 사용불가입니다.\\n 세션이 끈어졌거나 등급확인후 사용하세요.");
+			model.addAttribute("url", "/");
 		}
 		else if(msgFlag.equals("fileUploadOk")) {
 			model.addAttribute("msg", "파일이 업로드 되었습니다.");
@@ -94,16 +94,24 @@ public class MessageController {
 			model.addAttribute("msg", "아이디를 메일로 전송하였습니다.\\n메일을 확인하세요.");
 			model.addAttribute("url", "member/memLogin");
 		}
-		
-		
-		
-		
-		/*
-		else if(msgFlag.substring(0,12).equals("userUpdateOk")) {
-			model.addAttribute("msg", "유저 정보가 변경되었습니다.");
-			model.addAttribute("url", "/user/userUpdate?"+msgFlag.substring(13));
+		else if(msgFlag.equals("boardInputOk")) {
+			model.addAttribute("msg", "게시글이 저장되었습니다.");
+			model.addAttribute("url", "board/boardList");
 		}
-		*/
+		
+		
+		
+		
+		
+		else if(msgFlag.substring(0,13).equals("boardUpdateOk")) {
+			model.addAttribute("msg", "게시물의 정보가 변경되었습니다.");
+			model.addAttribute("url", "/board/boardContent?"+msgFlag.substring(14));
+		}
+		else if(msgFlag.substring(0,13).equals("boardDeleteOk")) {
+			model.addAttribute("msg", "게시물의 정보가 삭제되었습니다.");
+			model.addAttribute("url", "/board/boardList?"+msgFlag.substring(14));
+		}
+		
 		
 		
 		return "include/message";

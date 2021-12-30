@@ -17,6 +17,18 @@
 		select * from member2 where nickName = #{nickName};
 	</select>
 	
+	<update id="setLastDateUpdate">
+	  update member2 set point=point+#{newPoint}, todayCnt=#{todayCnt}, visitCnt=visitCnt+1, lastDate=now() where mid=#{mid};
+	</update>
+	
+	<select id="getGuestWriteCnt" resultType="int">
+		select count(*) from guest where name like concat('%',#{mid},'%') or name like concat('%',#{nickName},'%') or name like concat('%',#{name},'%');
+	</select>
+	
+	<select id="getBoardWriteCnt" resultType="int">
+		select count(*) from board where mid = #{mid};
+	</select>
+	
 	<insert id="setMemInput">
 		insert into member2 values (default,#{vo.mid},#{vo.pwd},#{vo.nickName},#{vo.name},#{vo.gender},#{vo.birthday},#{vo.tel},#{vo.address},#{vo.email},#{vo.homePage},#{vo.job},#{vo.hobby},#{vo.photo},#{vo.content},default,default,default,default,default,default,default,default);
 	</insert>
@@ -48,7 +60,4 @@
 		select * from member2 where email = #{toMail};
 	</select>
 	
-	<update id="setVisitUpdate">
-		update member2 set visitCnt=visitCnt+1, lastDate=now() where mid=#{mid};
-	</update>
 </mapper>

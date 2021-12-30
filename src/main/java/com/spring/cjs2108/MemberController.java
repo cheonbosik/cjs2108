@@ -50,7 +50,7 @@ public class MemberController {
 	
 	// 로그인 인증처리
 	@RequestMapping(value="/memLogin", method = RequestMethod.POST)
-	public String memLoginPost(String mid, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+	public String memLoginPost(String mid, String pwd, HttpSession session, HttpServletResponse response, HttpServletRequest request, Model model) {
 		MemberVO vo = memberService.getIdCheck(mid);
 		
 		if(vo != null && passwordEncoder.matches(pwd, vo.getPwd()) && vo.getUserDel().equals("NO")) {
@@ -66,9 +66,14 @@ public class MemberController {
 			session.setAttribute("sLevel", vo.getLevel());
 			session.setAttribute("sStrLevel", strLevel);
 			
+		  // 최종 접속일을 세션에 저장시켜준다.
+			session.setAttribute("sLastDate", vo.getLastDate().substring(0, vo.getLastDate().lastIndexOf(" ")));
+			
+			// 방문시에 처리할 내용들을 서비스객체에서 처리시킨다.(오늘방문카운트누적, 포인트누적, 등등등~~)
+			memberService.getMemberTodayProcess(vo.getTodayCnt());
+			
 			// 아이디에 대한 정보를 쿠키로 저장처리...
 			String idCheck = request.getParameter("idCheck")==null? "" : request.getParameter("idCheck");
-			
 			// 쿠키 처리(아이디에 대한 정보를 쿠키로 저장할지를 처리한다)-jsp에서 idCheck변수에 값이 체크되어서 넘어오면 'on'값이 담겨서 넘어오게 된다.
 			if(idCheck.equals("on")) {				// 앞의 jsp에서 쿠키를 저장하겠다고 넘겼을경우...
 				Cookie cookie = new Cookie("cMid", mid);
@@ -85,10 +90,6 @@ public class MemberController {
 					}
 				}
 			}
-			
-			// 로그인 인증후에 방문수 증가, 최종 방문일자/시간 업데이트
-			memberService.setVisitUpdate(mid);
-			
 			msgFlag = "memLoginOk";
 		}
 		else {
@@ -99,7 +100,19 @@ public class MemberController {
 	
 	// 로그인 성공후 만나는 회원메인창보기
 	@RequestMapping(value="/memMain", method = RequestMethod.GET)
-	public String memMainGet() {
+	public String memMainGet(HttpSession session, Model model) {
+		String mid = (String) session.getAttribute("sMid");
+		MemberVO vo = memberService.getIdCheck(mid);
+		model.addAttribute("vo", vo);
+		
+		// 방명록에 올린 글수 가져오기
+		int guestCnt = memberService.getGuestWriteCnt(mid, vo.getNickName(), vo.getName());
+		model.addAttribute("guestCnt", guestCnt);
+		
+		// 게시판에 올린 글수 가져오기
+		int boardCnt = memberService.getBoardWriteCnt(mid);
+		model.addAttribute("boardCnt", boardCnt);
+		
 		return "member/memMain";
 	}
 

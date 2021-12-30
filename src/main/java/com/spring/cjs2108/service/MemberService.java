@@ -12,6 +12,8 @@ public interface MemberService {
 	public MemberVO getIdCheck(String mid);
 
 	public MemberVO getNickNameCheck(String nickName);
+	
+	public void getMemberTodayProcess(int todayCnt);
 
 	public int setMemInput(MultipartFile fName, MemberVO vo);
 
@@ -25,6 +27,8 @@ public interface MemberService {
 
 	public ArrayList<MemberVO> getIdConfirm(String toMail);
 
-	public void setVisitUpdate(String mid);
+	public int getGuestWriteCnt(String mid, String nickName, String name);
+
+	public int getBoardWriteCnt(String mid);
 
 }

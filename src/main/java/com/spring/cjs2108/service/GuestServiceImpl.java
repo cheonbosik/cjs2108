@@ -32,4 +32,5 @@ public class GuestServiceImpl implements GuestService {
 	public void setGuestDelete(int idx) {
 		guestDAO.setGuestDelete(idx);
 	}
+
 }

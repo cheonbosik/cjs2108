@@ -17,6 +17,8 @@
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/member/**" location="/resources/member/" />
+	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
+	<resources mapping="/data/**" location="/resources/data/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,6 +31,8 @@
 	<!-- Interceptor 설정하기 -->
 	<beans:bean id="memberInterceptor" class="com.spring.cjs2108.interceptor.MemberInterceptor"/>
 	<beans:bean id="studyInterceptor" class="com.spring.cjs2108.interceptor.StudyInterceptor"/>
+	<beans:bean id="boardInterceptor" class="com.spring.cjs2108.interceptor.BoardInterceptor"/>
+	<beans:bean id="pdsInterceptor" class="com.spring.cjs2108.interceptor.PdsInterceptor"/>
 	<interceptors>
 	  <interceptor>
 	    <mapping path="/member/memList"/>
@@ -39,6 +43,16 @@
 	  <interceptor>
 	    <mapping path="/study/**"/>
 	    <beans:ref bean="studyInterceptor"/>
+	  </interceptor>
+	  <interceptor>
+	    <mapping path="/board/**"/>
+	    <exclude-mapping path="/board/boardList"/>
+	    <!-- <exclude-mapping path="/board/boardContent"/> -->
+	    <beans:ref bean="boardInterceptor"/>
+	  </interceptor>
+	  <interceptor>
+	    <mapping path="/pds/**"/>
+	    <beans:ref bean="pdsInterceptor"/>
 	  </interceptor>
 	</interceptors>
 	

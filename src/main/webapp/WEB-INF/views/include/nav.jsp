@@ -26,6 +26,7 @@
 	        <a href="${ctp}/study/ajax/ajaxMenu" class="w3-bar-item w3-button">Ajax연습</a>
 	        <a href="${ctp}/study/goods" class="w3-bar-item w3-button">상품등록</a>
 	        <a href="${ctp}/study/uuid" class="w3-bar-item w3-button">UUID연습</a>
+	        <a href="${ctp}/study/aria" class="w3-bar-item w3-button">ARIA암호화</a>
 	        <a href="${ctp}/mail/mailForm" class="w3-bar-item w3-button">메일연습</a>
 	        <a href="${ctp}/study/shop" class="w3-bar-item w3-button">미니쇼핑몰</a>
 	      </div>

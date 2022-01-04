@@ -98,6 +98,10 @@ public class MessageController {
 			model.addAttribute("msg", "게시글이 저장되었습니다.");
 			model.addAttribute("url", "board/boardList");
 		}
+		else if(msgFlag.equals("pdsInputOk")) {
+			model.addAttribute("msg", "자료파일이 업로드 되었습니다.");
+			model.addAttribute("url", "pds/pdsList");
+		}
 		
 		
 		

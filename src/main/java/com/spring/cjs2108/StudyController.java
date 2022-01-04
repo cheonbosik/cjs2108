@@ -1,5 +1,7 @@
 package com.spring.cjs2108;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.cjs2108.encryption.ARIAUtil;
 import com.spring.cjs2108.service.StudyService;
 import com.spring.cjs2108.vo.Goods1VO;
 import com.spring.cjs2108.vo.Goods2VO;
@@ -161,5 +164,28 @@ public class StudyController {
 			msgFlag = "fileUploadNo";
 		}
 		return "redirect:/msg/" + msgFlag;
+	}
+	
+	@RequestMapping(value="/aria", method = RequestMethod.GET)
+	public String ariaGet() {
+		return "study/aria/aria";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/aria", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String ariaPost(String pwd) {
+		String encPwd="", decPwd="";
+		// 비밀번호 암호화(ARIA)
+		try {
+			encPwd = ARIAUtil.ariaEncrypt(pwd);
+			decPwd = ARIAUtil.ariaDecrypt(encPwd);
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		// pwd = "Encrypt : " + encPwd + " / Decrypt : " + decPwd;
+		pwd = "암호화 : " + encPwd + " / 복호화 : " + decPwd;
+		return pwd;
 	}
 }

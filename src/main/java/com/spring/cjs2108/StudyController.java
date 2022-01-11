@@ -17,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.encryption.ARIAUtil;
 import com.spring.cjs2108.service.StudyService;
-import com.spring.cjs2108.vo.Goods1VO;
-import com.spring.cjs2108.vo.Goods2VO;
 import com.spring.cjs2108.vo.Goods3VO;
 import com.spring.cjs2108.vo.MemberVO;
 
@@ -116,7 +114,7 @@ public class StudyController {
 	// 상품등록테스트화면(대/중/소/상품명 등록창)
 	@RequestMapping("/goods")
 	public String goodsGet(Model model) {
-		List<Goods1VO> vos = studyService.getProduct1();
+		List<Goods3VO> vos = studyService.getProduct1();
 		model.addAttribute("vos", vos);
 		return "study/ajax/goods";
 	}
@@ -124,7 +122,7 @@ public class StudyController {
 	// 대분류선택시
 	@ResponseBody
 	@RequestMapping(value="/goods1", method = RequestMethod.POST)
-	public ArrayList<Goods2VO> goods1Post(String product1) {
+	public ArrayList<Goods3VO> goods1Post(String product1) {
 //		ArrayList<Goods2VO> vos = studyService.getProduct2(product1);
 //		return vos;
 		return studyService.getProduct2(product1);
@@ -133,7 +131,7 @@ public class StudyController {
 	// 중분류선택시
 	@ResponseBody
 	@RequestMapping(value="/goods2", method = RequestMethod.POST)
-	public ArrayList<Goods3VO> goods2Post(Goods2VO vo) {
+	public ArrayList<Goods3VO> goods2Post(Goods3VO vo) {
 		return studyService.getProduct3(vo.getProduct1(), vo.getProduct2());
 	}
 	

@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.cjs2108.vo.Goods1VO;
-import com.spring.cjs2108.vo.Goods2VO;
 import com.spring.cjs2108.vo.Goods3VO;
 import com.spring.cjs2108.vo.MemberVO;
 
@@ -22,9 +20,9 @@ public interface StudyService {
 
 	public int fileUpload(MultipartFile fName);
 
-	public List<Goods1VO> getProduct1();
+	public List<Goods3VO> getProduct1();
 
-	public ArrayList<Goods2VO> getProduct2(String product1);
+	public ArrayList<Goods3VO> getProduct2(String product1);
 
 	public ArrayList<Goods3VO> getProduct3(String product1, String product2);
 

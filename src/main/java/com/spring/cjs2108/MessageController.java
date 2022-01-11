@@ -102,6 +102,22 @@ public class MessageController {
 			model.addAttribute("msg", "자료파일이 업로드 되었습니다.");
 			model.addAttribute("url", "pds/pdsList");
 		}
+		else if(msgFlag.equals("dbProductInputOk")) {
+			model.addAttribute("msg", "상품이 등록 되었습니다.");
+			model.addAttribute("url", "dbShop/dbProduct");
+		}
+		else if(msgFlag.equals("dbOptionInputOk")) {
+			model.addAttribute("msg", "옵션이 등록되었습니다.");
+			model.addAttribute("url", "dbShop/dbOption");
+		}
+		else if(msgFlag.equals("orderInputOk")) {
+			model.addAttribute("msg", "주문이 완료되었습니다.");
+			model.addAttribute("url", "dbShop/dbOrderConfirm");
+		}
+		else if(msgFlag.equals("sessionProductNo")) {
+			model.addAttribute("msg", "장바구니가 비어있습니다.");
+			model.addAttribute("url", "sessionShop/shopList");
+		}
 		
 		
 		
@@ -109,11 +125,15 @@ public class MessageController {
 		
 		else if(msgFlag.substring(0,13).equals("boardUpdateOk")) {
 			model.addAttribute("msg", "게시물의 정보가 변경되었습니다.");
-			model.addAttribute("url", "/board/boardContent?"+msgFlag.substring(14));
+			model.addAttribute("url", "board/boardContent?"+msgFlag.substring(14));
 		}
 		else if(msgFlag.substring(0,13).equals("boardDeleteOk")) {
 			model.addAttribute("msg", "게시물의 정보가 삭제되었습니다.");
-			model.addAttribute("url", "/board/boardList?"+msgFlag.substring(14));
+			model.addAttribute("url", "board/boardList?"+msgFlag.substring(14));
+		}
+		else if(msgFlag.substring(0, 11).equals("imgDeleteOk")) {
+			model.addAttribute("msg", "임시 그림파일("+msgFlag.substring(12)+"개)이 모두 삭제되었습니다.");
+			model.addAttribute("url", "admin/imsiFileDelete");
 		}
 		
 		

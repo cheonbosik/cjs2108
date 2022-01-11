@@ -3,6 +3,8 @@ package com.spring.cjs2108;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,6 +140,33 @@ public class AdminController {
 			guestService.setGuestDelete(Integer.parseInt(idx));
 		}
 		return "";
+	}
+	
+	// 임시파일 삭제 메뉴 부르기
+	@RequestMapping(value="/imsiFileDelete")
+	public String imsiFileDeleteGet() {
+		return "admin/file/tempDelete";
+	}
+	
+	// 게시판 임시파일 삭제 하기
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/boardTempDelete", method=RequestMethod.GET)
+	public String boardTempDeleteGet(HttpServletRequest request) {
+		// board작업시에 생성된 'data/ckeditor/'폴더의 모든 그림파일들을 삭제처리시킨다.
+		String uploadPath = request.getRealPath("/resources/data/ckeditor/");
+		int fileCnt = adminService.imgDelete(uploadPath);
+		msgFlag = "imgDeleteOk$"+fileCnt;
+		return "redirect:/msg/" + msgFlag;
+	}
+	
+	// 상품등록 임시파일 삭제 하기
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/productTempDelete", method=RequestMethod.GET)
+	public String productTempDeleteGet(HttpServletRequest request) {
+		String uploadPath = request.getRealPath("/resources/data/dbShop/");
+		int fileCnt = adminService.imgDelete(uploadPath);
+		msgFlag = "imgDeleteOk$"+fileCnt;
+		return "redirect:/msg/" + msgFlag;
 	}
 }
 

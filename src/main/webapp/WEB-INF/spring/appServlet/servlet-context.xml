@@ -16,10 +16,12 @@
 	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/member/**" location="/resources/member/" />
 	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
 	<resources mapping="/data/**" location="/resources/data/" />
 	<resources mapping="/pds/**" location="/resources/data/pds/" />
+	<resources mapping="/dbShop/**" location="/resources/data/dbShop/product/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,6 +36,7 @@
 	<beans:bean id="studyInterceptor" class="com.spring.cjs2108.interceptor.StudyInterceptor"/>
 	<beans:bean id="boardInterceptor" class="com.spring.cjs2108.interceptor.BoardInterceptor"/>
 	<beans:bean id="pdsInterceptor" class="com.spring.cjs2108.interceptor.PdsInterceptor"/>
+	<beans:bean id="adminInterceptor" class="com.spring.cjs2108.interceptor.AdminInterceptor"/>
 	<interceptors>
 	  <interceptor>
 	    <mapping path="/member/memList"/>
@@ -43,6 +46,8 @@
 	  </interceptor>
 	  <interceptor>
 	    <mapping path="/study/**"/>
+	    <mapping path="/mail/**"/>
+	    <mapping path="/dbShop/**"/>
 	    <beans:ref bean="studyInterceptor"/>
 	  </interceptor>
 	  <interceptor>
@@ -53,7 +58,13 @@
 	  </interceptor>
 	  <interceptor>
 	    <mapping path="/pds/**"/>
+	    <exclude-mapping path="/pds/pdsList"/>
+	    <exclude-mapping path="/pds/pdsContent"/>
 	    <beans:ref bean="pdsInterceptor"/>
+	  </interceptor>
+	  <interceptor>
+	    <mapping path="/admin/**"/>
+	    <beans:ref bean="adminInterceptor"/>
 	  </interceptor>
 	</interceptors>
 	

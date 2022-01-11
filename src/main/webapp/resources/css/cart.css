@@ -1,0 +1,135 @@
+.head{text-align:center;}
+.list{
+  margin:0 auto;
+  text-align:center;
+  width:100%;
+  padding:10px;
+}
+.tablehead{
+  background-color:#ccc;
+  text-align:center;
+  height:50px;
+  font-size:20px;
+}
+.thumb{width:150px;}
+.inputBox{
+  width:95px;   
+  border:0px; 
+  outline:none;
+}
+.numBox{width:80px;}
+/* 
+#lastPrice, #total {
+  width:100px;
+}
+*/
+.lastTitle{
+  clear:both;
+  width:80%;
+  background-color:#fff;
+  height:130px;
+  padding:3% 10% 10% 10%;
+  margin:0 auto;
+}
+.last{
+  clear:both;
+  width:100%;
+  background-color:#ddd;
+  height:100px;
+  padding:3% 5% 0% 5%;
+  margin:0 auto;
+}
+.inline{
+  display:inline;
+  float:left;
+  text-align:center;
+}
+/* 
+.ll{
+  margin-left:10px;
+}
+*/
+.box{
+  /* width:100px; */
+  border:0px;
+  background-color:#eee;
+  text-align:center;
+  outline:none;
+}
+.btngroup{
+  clear:both;
+  float:left;
+  margin:0 auto;
+}
+.ft{font-size:22px;}
+.inputFont{font-size:22px;}
+.finalTot {
+  width : 550px;
+  height: 100px;
+  margin : 0 auto;
+  background-color:#ddd;
+  padding:10px;
+}
+.totBox {
+  float : left;
+  background-color:#ddd;
+  width : 100px;
+  text-align : center;
+  padding : 10px;
+}
+.totSubBox {
+  background-color:#ddd;
+  border : none;
+  width : 100px;
+  text-align : center;
+  font-weight: bold;
+  padding : 10 0px;
+  color : brown;
+}
+
+/* 핸드폰사이즈 */
+@media screen and (max-width: 750px) {
+  .tablehead{
+    height:30px;
+    font-size:13px;
+  } 
+  .thumb{width:80px;}
+  .last{
+    width:100%;
+    height:150px;
+    padding:10% 5% 10% 5%;
+  }   
+  .box{width:82px;}
+  .ft{font-size:10px;}
+  .math{width:20px;}
+  .inputFont{font-size:20px;}    
+  .contFont {font-size:12px;}    
+  .totalFont{font-size:13px;}    
+  .btnFont  {font-size:10px;margin:0px;padding:0px}    
+  .buyFont  {font-size:10px;}    
+}
+  
+/* 중간 */
+@media screen and (min-width:751px) and (max-width:1000px) {
+  .last{
+	  width:90%;
+	  height:150px;
+	  padding:5% 20% 10% 20%;
+  } 
+  .thumb{width:100px;}          
+  .box{width:85px;}
+  .ft{font-size:18px;}
+  .inputFont{font-size:20px;}      
+}     
+
+/* 태블릿 */
+@media screen and (min-width:1001px) and (max-width:1200px) {
+  .last{
+    width:90%;
+    height:150px;
+    padding:3% 18% 10% 18%;
+  }   
+  .box{width:100px;}
+  .ft{font-size:20px;}
+  .inputFont{font-size:22px;}      
+}

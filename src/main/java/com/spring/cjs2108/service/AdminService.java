@@ -18,4 +18,6 @@ public interface AdminService {
 
 	public int getNewMember();
 
+	public int imgDelete(String uploadPath);
+
 }

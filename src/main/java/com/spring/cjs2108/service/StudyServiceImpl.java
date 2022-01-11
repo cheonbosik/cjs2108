@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.dao.MemberDAO;
 import com.spring.cjs2108.dao.StudyDAO;
-import com.spring.cjs2108.vo.Goods1VO;
-import com.spring.cjs2108.vo.Goods2VO;
 import com.spring.cjs2108.vo.Goods3VO;
 import com.spring.cjs2108.vo.MemberVO;
 
@@ -168,12 +166,12 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public List<Goods1VO> getProduct1() {
+	public List<Goods3VO> getProduct1() {
 		return studyDAO.getProduct1();
 	}
 
 	@Override
-	public ArrayList<Goods2VO> getProduct2(String product1) {
+	public ArrayList<Goods3VO> getProduct2(String product1) {
 		return studyDAO.getProduct2(product1);
 	}
 

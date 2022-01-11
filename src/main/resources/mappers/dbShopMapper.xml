@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs2108.dao.DbShopDAO">
+	<select id="getCategoryMain" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  select * from categoryMain order by categoryMainCode desc;
+	</select>
+	
+	<select id="getCategoryMiddle" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  SELECT middle.*,main.categoryMainName AS categoryMainName
+	  	FROM categoryMiddle middle, categoryMain main WHERE middle.categoryMainCode=main.categoryMainCode
+	  	ORDER BY middle.categoryMiddleCode desc;
+	</select>
+	
+	<select id="getCategorySub" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  SELECT sub.*,main.categoryMainName as categoryMainName,middle.categoryMiddleName as categoryMiddleName
+	  	FROM categorySub sub, categoryMiddle middle, categoryMain main WHERE sub.categoryMiddleCode=middle.categoryMiddleCode and sub.categoryMainCode=main.categoryMainCode
+	  	ORDER BY sub.categorySubCode desc;
+	</select>
+	
+	<select id="getCategoryMainOne" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  select * from categoryMain where categoryMainCode = #{categoryMainCode} or categoryMainName = #{categoryMainName};
+	</select>
+	
+	<select id="getCategoryMiddleOne" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  select * from categoryMiddle where categoryMiddleCode = #{vo.categoryMiddleCode} or (categoryMainCode = #{vo.categoryMainCode} and categoryMiddleName = #{vo.categoryMiddleName});
+	</select>
+	
+	<select id="getCategorySubOne" resultType="com.spring.cjs2108.vo.CategorySubVO">
+	  select * from categorySub where categorySubCode = #{vo.categorySubCode} or 
+	    (categoryMainCode = #{vo.categoryMainCode} and categoryMiddleCode = #{vo.categoryMiddleCode} and categorySubName = #{vo.categorySubName});
+	</select>
+	
+	<select id="getDbProductOne" resultType="com.spring.cjs2108.vo.DbProductVO">
+	  select * from dbProduct where substring(productCode,4,3) = #{categorySubCode};
+	</select>
+	
+	<select id="getCategoryMiddleName" resultType="com.spring.cjs2108.vo.CategorySubVO">
+		select * from categoryMiddle where categoryMainCode = #{categoryMainCode};
+	</select>
+	
+	<select id="getCategorySubName" resultType="com.spring.cjs2108.vo.CategorySubVO">
+		select * from categorySub where categoryMainCode = #{categoryMainCode} and categoryMiddleCode = #{categoryMiddleCode};
+	</select>
+	
+	<select id="getProductMaxIdx" resultType="com.spring.cjs2108.vo.DbProductVO">
+	  <!-- select max(idx) from dbProduct; -->
+	  select * from dbProduct order by idx desc limit 1;
+	</select>
+	
+	<select id="getProductName" resultType="String">
+    select productName from dbProduct order by productName;
+  </select>
+	
+	<select id="getProductInfor" resultType="com.spring.cjs2108.vo.DbProductVO">
+	  SELECT product.*, main.categoryMainName, middle.categoryMiddleName, sub.categorySubName
+	    FROM dbProduct product, categoryMain main, categoryMiddle middle, categorySub sub 
+	    WHERE productName=#{productName} ORDER BY idx DESC LIMIT 1;
+	</select>
+	
+	<select id="getSubTitle" resultType="com.spring.cjs2108.vo.DbProductVO">
+    <!-- select product.*,sub.categorySubName from dbProduct product,categorySub sub order by sub.categorySubName; -->
+    select categorySubName from categorySub group by categorySubName order by categorySubName;
+  </select>
+  
+  <select id="getDbShopList" resultType="com.spring.cjs2108.vo.DbProductVO">
+    <if test="part == '전체'">
+	    select * from dbProduct order by idx desc limit 30;
+    </if>
+    <if test="part != '전체'">
+	    select product.*,sub.categorySubName from dbProduct product,categorySub sub where sub.categorySubName = #{part} and substring(product.productCode,4,3) = sub.categorySubCode order by idx desc;
+    </if>
+  </select>
+  
+  <select id="getDbShopProduct" resultType="com.spring.cjs2108.vo.DbProductVO">
+    select * from dbProduct where idx = #{idx};
+  </select>
+  
+  <select id="getDbShopOption" resultType="com.spring.cjs2108.vo.DbOptionVO">
+    select * from dbOption where productIdx = #{idx} order by idx;
+  </select>
+	
+	<select id="dbCartListProductOptionSearch" resultType="com.spring.cjs2108.vo.DbCartListVO">
+    select * from dbCartList where productName=#{productName} and optionName=#{optionName};
+  </select>
+  
+  <select id="getDbCartList" resultType="com.spring.cjs2108.vo.DbCartListVO">
+    select * from dbCartList where mid = #{mid} order by idx;
+  </select>
+  
+  <select id="getCartIdx" resultType="com.spring.cjs2108.vo.DbCartListVO">
+    select * from dbCartList where idx = #{idx};
+  </select>
+  
+  <select id="getOrderMaxIdx" resultType="com.spring.cjs2108.vo.DbOrderVO">
+    select max(idx) as maxIdx from dbOrder;
+  </select>
+  
+  <select id="getBaesong" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    select * from dbBaesong where mid = #{mid};
+  </select>
+  
+  <select id="getOrderOIdx" resultType="int">
+    select max(idx) from dbOrder where orderIdx = #{orderIdx};
+  </select>
+  
+  <select id="getOrderBaesong" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    select * from dbBaesong where orderIdx = #{orderIdx};
+  </select>
+  
+  <select id="totRecCnt" resultType="int">
+    <if test="mid == '전체'">
+	    select count(*) from dbOrder;
+    </if>
+    <if test="mid != '전체'">
+	    <!-- select count(*) from dbOrder where mid = #{mid}; -->
+	    select count(*) from dbBaesong where mid = #{mid};
+    </if>
+  </select>
+  
+  <select id="getDbMyOrder" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    select oder.*,baesong.* from dbOrder oder join dbBaesong baesong using(orderIdx) where baesong.mid=#{mid} order by baesong.idx desc limit #{startIndexNo},#{pageSize};
+  </select>
+  
+  <select id="totRecCntStatus" resultType="int">
+    <if test="orderStatus == '전체'">
+	    select count(*) from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid};
+    </if>
+    <if test="orderStatus != '전체'">
+	    select count(*) from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid} and b.orderStatus=#{orderStatus};
+    </if>
+  </select>
+  
+  <select id="getOrderStatus" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    <if test="orderStatus == '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid} order by b.idx desc;
+    </if>
+    <if test="orderStatus != '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.mid=#{mid} and b.orderStatus=#{orderStatus} order by b.idx desc;
+    </if>
+  </select>
+  
+  <select id="totRecCntOrderCondition" resultType="int">
+    <!-- select count(*) from dbOrder a join dbBaesong b using(orderIdx) where a.mid=#{mid} and date(orderDate) ge date(subdate(now(), INTERVAL #{conditionDate} DAY)) and date(orderDate) le date(now()) order by orderDate desc; -->
+    <!-- select count(*) from dbOrder a join dbBaesong b using(orderIdx) where a.mid=#{mid} and <![CDATA[ date(orderDate) >= date(subdate(now(), INTERVAL #{conditionDate} DAY)) and date(orderDate) <= date(now()) ]]> order by orderDate desc; -->
+    select count(*) from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where b.mid=#{mid} and date(orderDate) >= date(subdate(now(), INTERVAL #{conditionDate} DAY)) and date(orderDate) <= date(now()) order by orderDate desc ]]>;
+  </select>
+  
+  <select id="orderCondition" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where b.mid=#{mid} and date(orderDate) >= date(subdate(now(), INTERVAL #{conditionDate} DAY)) and date(orderDate) <= date(now()) order by orderDate desc ]]>;
+  </select>
+  
+  <select id="adminOrderStatus" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    <if test="orderStatus == '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) order by a.idx desc;
+    </if>
+    <if test="orderStatus != '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) where b.orderStatus=#{orderStatus} order by a.idx desc;
+    </if>
+  </select>
+  
+  <select id="totRecCntAdminStatus" resultType="int">
+    <if test="orderStatus == '전체'">
+	    select count(*) from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where date(orderDate) >= date(#{startJumun}) and date(orderDate) <= date(#{endJumun}) order by orderDate desc ]]>;
+    </if>
+    <if test="orderStatus != '전체'">
+	    select count(*) from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where date(orderDate) >= date(#{startJumun}) and date(orderDate) <= date(#{endJumun}) and b.orderStatus=#{orderStatus} order by orderDate desc ]]>;
+    </if>
+  </select>
+  
+  <select id="getOrderAdminStatus" resultType="com.spring.cjs2108.vo.DbBaesongVO">
+    <if test="orderStatus == '전체'">
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where date(orderDate) >= date(#{startJumun}) and date(orderDate) <= date(#{endJumun}) order by orderDate desc ]]>;
+    </if>
+    <if test="orderStatus != '전체'">
+      <!-- select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where date(orderDate) >= date('2022-01-10') and date(orderDate) <= date('2022-01-10') and b.orderStatus='배송중' order by orderDate desc ]]>; -->
+      select a.*,b.* from dbOrder a join dbBaesong b using(orderIdx) <![CDATA[ where date(orderDate) >= date(#{startJumun}) and date(orderDate) <= date(#{endJumun}) and b.orderStatus=#{orderStatus} order by orderDate desc ]]>;
+    </if>
+  </select>
+	
+	<insert id="categoryMainInput">
+	  insert into categoryMain value (#{vo.categoryMainCode},#{vo.categoryMainName});
+	</insert>
+	
+	<insert id="categoryMiddleInput">
+	  insert into categoryMiddle value (#{vo.categoryMainCode},#{vo.categoryMiddleCode},#{vo.categoryMiddleName});
+	</insert>
+	
+	<insert id="categorySubInput">
+	  insert into categorySub value (#{vo.categoryMainCode},#{vo.categoryMiddleCode},#{vo.categorySubCode},#{vo.categorySubName});
+	</insert>
+	
+	<insert id="setDbProductInput">
+	  insert into dbProduct value (default,#{vo.productCode},#{vo.productName},#{vo.detail},#{vo.mainPrice},#{vo.fName},#{vo.fSName},#{vo.content});
+	</insert>
+	
+	<insert id="setDbOptionInput">
+	  insert into dbOption values (default,#{vo.productIdx},#{vo.optionName},#{vo.optionPrice});
+	</insert>
+	
+	<insert id="dbShopCartInput">
+    insert into dbCartList values (default,default,#{vo.mid},#{vo.productIdx},#{vo.productName},#{vo.mainPrice},#{vo.thumbImg},#{vo.optionIdx},#{vo.optionName},#{vo.optionPrice},#{vo.optionNum},#{vo.totalPrice});
+  </insert>
+  
+  <insert id="setDbOrder">
+    insert into dbOrder values (default,#{vo.orderIdx},#{vo.mid},#{vo.productIdx},default,#{vo.productName},#{vo.mainPrice},#{vo.thumbImg},#{vo.optionName},#{vo.optionPrice},#{vo.optionNum},#{vo.totalPrice});
+  </insert>
+  
+  <insert id="setDbBaesong">
+    insert into dbBaesong values (default,#{bVo.oIdx},#{bVo.orderIdx},#{bVo.orderTotalPrice},#{bVo.mid},#{bVo.name},#{bVo.address},#{bVo.tel},#{bVo.message},#{bVo.payment},#{bVo.payMethod},default);
+  </insert>
+	
+	<delete id="delCategoryMain">
+	  delete from categoryMain where categoryMainCode = #{categoryMainCode}
+	</delete>
+	
+	<delete id="delCategoryMiddle">
+	  delete from categoryMiddle where categoryMiddleCode = #{categoryMiddleCode}
+	</delete>
+	
+	<delete id="delCategorySub">
+	  delete from categorySub where categorySubCode = #{categorySubCode}
+	</delete>
+	
+	<delete id="dbCartDel">
+    delete from dbCartList where idx = #{idx};
+  </delete>
+  
+  <delete id="delDbCartList">
+    delete from dbCartList where idx = #{cartIdx};
+  </delete>
+	
+	<update id="dbShopCartUpdate">
+    update dbCartList set optionNum=#{vo.optionNum},totalPrice=totalPrice+#{vo.totalPrice} where productName=#{vo.productName} and optionName=#{vo.optionName};
+  </update>
+  
+  <update id="setMemberPointPlus">
+  	update member2 set point = point + #{point} where mid = #{mid};
+  </update>
+  
+  <update id="setOrderStatusUpdate">
+    update dbBaesong set orderStatus = #{orderStatus} where orderIdx = #{orderIdx};
+  </update>
+  
+</mapper>

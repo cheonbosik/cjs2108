@@ -1,0 +1,300 @@
+.body{
+  margin:5px;
+}
+.contents{
+  border: 1px solid #ccc;
+  padding:5px;
+}
+
+#Thumbnail{
+  border:1px solid gray;
+  width:50%; 
+  float:left;
+  padding:5px;
+  margin:5px 15px 25px 5px;
+}
+
+#iteminfo {
+ float:left;
+ width:45%;
+ padding:2px;
+ margin-left:10px;
+ 
+}
+.select_box{
+ float:left;
+ margin-left:10px;
+ width:45%;
+}
+#product1{
+  float:left;
+  margin-left:10px;
+  width:45%;
+}
+.layer {
+  border:1px solid #ccc;
+  width:100%;
+  padding:20px;
+  background-color:#eee;
+}
+#option{
+  border:0px;
+  background-color:#eee;
+}
+.price {
+  border:0px;
+  background-color:#eee;
+  text-align:right;
+  font-size:20px;
+  color:black;
+  outline:none;
+}
+.product2{
+  float:left;
+  margin-left:10px;
+  width:45%;
+  padding:5px;
+}    
+.buttongroup{
+  float:left;
+  margin-left:10px;
+  margin-top:20px;
+  width:45%;
+  padding:5px;
+  text-align:center;
+}
+.banner{
+  clear:both;
+  text-align:center;
+  padding:10px;
+}
+.bannerimg{
+  margin:10px;
+}
+.next{
+ clear:both;
+ text-align:center;
+ padding:10px;
+ margin-top:20px;
+ width:100%;
+}
+.numBox {
+  width:80px;
+}
+.price {
+  width:160px;
+}
+.removebtn{
+  display:inline;
+  float:right;
+}
+.totalPrice{
+  width:200px;
+  text-align:right;
+  color:#f63;
+  font-weight:bold;
+  border:0px;
+  margin-right:10px;
+  outline:none;
+}
+.review{
+  padding:20px; 
+}
+.review1{
+  padding:20px;
+  margin:0 auto;
+  width:95%;
+  height:150px; 
+  background-color:#ddd;
+}
+.review2{
+ float:left;
+ width:80%;
+}
+.review3{
+ float:left;
+ width:20%;
+ margin:0 auto;
+ text-align:center;
+}
+.review4{
+  clear:both;
+  padding:20px;
+  margin:0 auto;
+  width:95%;
+}
+.sub{
+  height:15px;
+  font-size:13px;
+}
+.inquirytop{
+  width:95%;
+  height:260px; 
+  border:1px solid #ddd;
+  background-color:#f6f6f6;
+  margin:0 auto; 
+  padding:20px;
+}
+.inline1{
+ float:left;
+ width:80%; 
+}
+.inline2{
+ float:left;
+ width:20%;
+ margin:0 auto;
+ text-align:center;
+}
+.text{
+  font-size:14px;
+  color:black;
+}
+.textbox{
+  width:83%;
+  float:left;
+  margin-right:20px;
+}
+.button{
+  float:left;
+  width:10%;
+  border-radius:5px;
+  height:80px; 
+  background-color:#ff7827; 
+  padding:10px;
+  vertical-align:middle; 
+  cursor:pointer;
+}
+.btnletter{
+  margin-top:15px;
+}
+.radiobox{
+  text-align:left;
+}
+.inquiry{
+  padding:20px; 
+}
+.inquirybottom{
+  margin:0 auto; 
+  width:95%;
+}
+
+/* 핸드폰사이즈 */
+@media screen and (max-width: 599px) {
+  #Thumbnail{
+    border:5px solid black;
+    width:100%; 
+    float:left;
+  }
+  .select_box{
+   width:90%;
+  }
+  #product1{
+   width:90%;
+  }
+  .layer {
+    width:100%;
+  }
+  .product2{
+    width:90%;
+    padding:5px;
+  }    
+  .buttongroup{
+    width:90%;
+  }
+  .but{
+    display: block;
+    width: 100%;      
+  }
+  .img{
+    width:90%;
+  }
+  .review1{
+    height:300px; 
+  }      
+  .review2{
+    margin:0 auto;
+    width:90%;
+  }
+  .review3{
+    margin:0 auto;
+    width:90%; 
+  }  
+  .numBox {
+    width:50px;
+  }   
+  .inquirytop{
+    height:600px; 
+  }          
+  .inline1{
+   width:100%; 
+  }
+  .inline2{
+   width:100%;
+  } 
+  .textbox{
+    width:100%;
+    margin-bottom:10px; 
+  }      
+  .button{
+    width:100%;
+    margin:0 auto;
+    height:50px; 
+  }
+  .btnletter{
+    margin-top:0px;
+  }      
+} 
+
+/* 태블릿사이즈 */
+@media screen and (min-width:600px) and (max-width:1023px) {
+  #Thumbnail{
+    border:5px solid black;
+    width:80%; 
+    float:left;
+    align:center;
+    margin:0 auto;
+  }
+  .select_box{
+   width:90%;
+  }
+  #product1{
+   width:90%;
+  }
+  .layer {
+    width:90%;
+  }
+  .product2{
+    width:90%;
+    padding:5px;
+  }    
+  .buttongroup{
+    width:90%;
+  }
+  .img{
+    width:90%;
+  }
+  .review1{
+    height:230px; 
+  }  
+  .inquirytop{
+    height:450px; 
+  }          
+  .inline1{
+   width:100%; 
+  }
+  .inline2{
+   width:100%;
+  } 
+  .textbox{
+    width:100%;
+    margin-bottom:10px; 
+  }      
+  .button{
+    width:100%;
+    margin:0 auto;
+    height:50px; 
+  }
+  .btnletter{
+    margin-top:0px;
+  }      
+}   

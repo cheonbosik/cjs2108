@@ -168,5 +168,15 @@ public class AdminController {
 		msgFlag = "imgDeleteOk$"+fileCnt;
 		return "redirect:/msg/" + msgFlag;
 	}
+	
+	// data폴더의 임시파일 삭제 하기
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/dataTempDelete", method=RequestMethod.GET)
+	public String dataTempDeleteGet(HttpServletRequest request) {
+		String uploadPath = request.getRealPath("/resources/data/");
+		int fileCnt = adminService.imgDelete(uploadPath);
+		msgFlag = "imgDeleteOk$"+fileCnt;
+		return "redirect:/msg/" + msgFlag;
+	}
 }
 

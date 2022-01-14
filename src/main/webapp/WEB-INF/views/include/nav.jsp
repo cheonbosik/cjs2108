@@ -27,15 +27,18 @@
 	        <a href="${ctp}/study/goods" class="w3-bar-item w3-button">상품등록</a>
 	        <a href="${ctp}/study/uuid" class="w3-bar-item w3-button">UUID연습</a>
 	        <a href="${ctp}/study/aria" class="w3-bar-item w3-button">ARIA암호화</a>
+	        <a href="${ctp}/study/calendar" class="w3-bar-item w3-button">인터넷달력</a>
 	        <a href="${ctp}/mail/mailForm" class="w3-bar-item w3-button">메일연습</a>
 	        <a href="${ctp}/sessionShop/shopList" class="w3-bar-item w3-button">세션장바구니</a>
 	        <a href="${ctp}/dbShop/dbShopList" class="w3-bar-item w3-button">미니쇼핑몰</a>
+	        <a href="${ctp}/study/mainImage" class="w3-bar-item w3-button">메인이미지관리</a>
 	      </div>
 	    </div>
 	    <div class="w3-dropdown-hover w3-hide-small">
 	      <button class="w3-padding-large w3-button" title="More">${sNickName} <i class="fa fa-caret-down"></i></button>     
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
 	        <a href="${ctp}/member/memMain" class="w3-bar-item w3-button">회원메인</a>
+	        <a href="${ctp}/schedule/schedule" class="w3-bar-item w3-button">일정관리</a>
 	        <a href="${ctp}/dbShop/dbMyOrder" class="w3-bar-item w3-button">주문조회</a>
 	        <a href="${ctp}/dbShop/dbCartList" class="w3-bar-item w3-button">장바구니</a>
 	        <a href="${ctp}/member/memList" class="w3-bar-item w3-button">회원리스트</a>

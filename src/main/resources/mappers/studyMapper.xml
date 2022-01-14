@@ -11,5 +11,31 @@
 	 
 	<select id="getProduct3" resultType="com.spring.cjs2108.vo.Goods3VO">
 		select * from goods3 where product1 = #{product1} and product2 = #{product2};
-	</select> 
+	</select>
+	
+	<insert id="imgCheckInput">
+    insert into mainImage values (#{vo.idx},#{vo.part},#{vo.mainFName});
+  </insert>
+  
+  <select id="getMainImageIdx" resultType="com.spring.cjs2108.vo.MainImageVO">
+    select max(idx) as maxIdx from mainImage;
+  </select>
+  
+  <select id="getMainImageList" resultType="com.spring.cjs2108.vo.MainImageVO">
+    <if test="idx == 0">
+	    select * from mainImage where idx = (select max(idx) from mainImage);
+    </if>
+    <if test="idx != 0">
+	    select * from mainImage where idx = #{idx};
+    </if>
+  </select>
+  
+  <select id="getMainImagePart" resultType="com.spring.cjs2108.vo.MainImageVO">
+    select * from mainImage group by idx order by part, idx desc;
+  </select>
+  
+  <delete id="mainImageDelete">
+    delete from mainImage where idx = #{idx};
+  </delete>
+  
 </mapper>

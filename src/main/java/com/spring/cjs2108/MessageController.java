@@ -118,6 +118,10 @@ public class MessageController {
 			model.addAttribute("msg", "장바구니가 비어있습니다.");
 			model.addAttribute("url", "sessionShop/shopList");
 		}
+		else if(msgFlag.equals("mainImageInputOk")) {
+			model.addAttribute("msg", "메인이미지가 업로드 되었습니다.");
+			model.addAttribute("url", "study/mainImageList");
+		}
 		
 		
 		

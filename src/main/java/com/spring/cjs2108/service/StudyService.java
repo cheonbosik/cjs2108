@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.vo.Goods3VO;
+import com.spring.cjs2108.vo.MainImageVO;
 import com.spring.cjs2108.vo.MemberVO;
 
 public interface StudyService {
@@ -25,5 +26,15 @@ public interface StudyService {
 	public ArrayList<Goods3VO> getProduct2(String product1);
 
 	public ArrayList<Goods3VO> getProduct3(String product1, String product2);
+
+	public void getCalendar();
+	
+	public void imgCheckInput(MainImageVO vo);
+
+	public List<MainImageVO> getMainImageList(int idx);
+
+	public List<MainImageVO> getMainImagePart();
+
+	public void mainImageDelete(int idx);
 
 }

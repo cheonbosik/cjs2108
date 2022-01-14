@@ -30,7 +30,7 @@
   <div>
     <c:set var="productCnt" value="${fn:length(productList)}"/>
     <c:set var="imsiProduct" value=""/>
-    <c:set var="sw" value="0"/>		<!-- 아래 품목 반복비교처리부분을 처음 수행시 1회만 초기값을 지정해 주기 위해 사용한 변수 -->
+    <c:set var="sw" value="0"/>		<!-- 아래 품목 반복비교처리부분을 처음		 수행시 1회만 초기값을 지정해 주기 위해 사용한 변수 -->
     <p>구입한 품목의 총 수량 : ${productCnt}개</p>
     <hr/>
     <c:forEach var="product" items="${productList}">

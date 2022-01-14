@@ -1,23 +1,34 @@
 package com.spring.cjs2108;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.cjs2108.encryption.ARIAUtil;
 import com.spring.cjs2108.service.StudyService;
 import com.spring.cjs2108.vo.Goods3VO;
+import com.spring.cjs2108.vo.MainImageVO;
 import com.spring.cjs2108.vo.MemberVO;
 
 @Controller
@@ -185,5 +196,76 @@ public class StudyController {
 		// pwd = "Encrypt : " + encPwd + " / Decrypt : " + decPwd;
 		pwd = "암호화 : " + encPwd + " / 복호화 : " + decPwd;
 		return pwd;
+	}
+	
+  // 달력내역 가져오기
+	@RequestMapping(value="/calendar", method=RequestMethod.GET)
+	public String calendarGet() {
+		studyService.getCalendar();
+		return "study/calendar/calendar";
+	}
+	
+  // 메인 상품/포토/이벤트 이미지관리(ckeditor로 등록된 메인 이미지 처리) - 등록폼 보기
+	@RequestMapping(value="/mainImage", method = RequestMethod.GET)
+	public String mainImageGet() {
+		return "study/mainImage/mainImage";
+	}
+	
+	// ckeditor에서 등록한 이미지 업로드...
+	@ResponseBody
+	@RequestMapping(value="/mainImage/imageUpload")
+	public void mainImageUploadGet(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception {
+		response.setCharacterEncoding("utf-8");
+   response.setContentType("text/html;charset=utf-8");
+	  
+	  String fileName=upload.getOriginalFilename();
+
+   Date date = new Date();
+   SimpleDateFormat imsi = new SimpleDateFormat("yyMMddHHmmss");
+   fileName = imsi.format(date)+"_"+fileName;
+   byte[] bytes = upload.getBytes();
+	  
+   // 이곳은 그림파일을 서버의 파일시스템으로 저장하는것(아래로 3줄)
+	  String uploadPath = request.getSession().getServletContext().getRealPath("/")+"/resources/data/";
+   OutputStream outStr = new FileOutputStream(new File(uploadPath + fileName));
+   outStr.write(bytes);
+   
+   // 아래는 ckeditor화면에 그림을 출력시켜주는것...(아래로 3줄)
+   PrintWriter out=response.getWriter();
+   String fileUrl=request.getContextPath()+"/data/"+fileName;
+
+   out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+   out.flush();
+   outStr.close();
+	}
+	
+ // 메인 상품 이미지관리(ckeditor로 등록된 메인 이미지 처리) - 'data'폴더에서 'data/mainImage'폴더로 복사작업..
+	@RequestMapping(value="/mainImage", method = RequestMethod.POST)
+	public String mainImagePost(MainImageVO vo, Model model) {
+ 	  // 이미지파일 업로드시에는 'resources/data'폴더에서 'resources/data/mainImage'폴더로 복사작업처리
+		studyService.imgCheckInput(vo);
+		msgFlag = "mainImageInputOk";
+		return "redirect:/msg/" + msgFlag;
+	}
+	
+ // 메인 이미지 보기...
+	@RequestMapping(value="/mainImageList", method = RequestMethod.GET)
+	public String mainImageListGet(Model model,	@RequestParam(name="idx", defaultValue="0", required=false) int idx) {
+		List<MainImageVO> mainImageVos = studyService.getMainImageList(idx);
+		model.addAttribute("mainImageVos", mainImageVos);
+		model.addAttribute("idx", mainImageVos.get(0).getIdx());
+		model.addAttribute("part", mainImageVos.get(0).getPart());
+		
+		List<MainImageVO> partVos = studyService.getMainImagePart();
+		model.addAttribute("partVos", partVos);
+		return "study/mainImage/mainImageList";
+	}
+	
+	// 메인이미지 보기에 보이는 현재 이미지들 삭제하기
+	@ResponseBody
+	@RequestMapping(value="/mainImageDelete")
+	public String mainImageDelete(int idx) {
+		studyService.mainImageDelete(idx);
+		return "";
 	}
 }

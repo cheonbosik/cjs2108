@@ -157,6 +157,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+	// 게시판의 ckeditor에 올린 이미지 삭제하기
 	@SuppressWarnings("deprecation")
 	@Override
 	public void imgDelete(String content) {

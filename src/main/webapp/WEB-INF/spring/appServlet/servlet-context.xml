@@ -47,6 +47,7 @@
 	  <interceptor>
 	    <mapping path="/study/**"/>
 	    <mapping path="/mail/**"/>
+	    <mapping path="/sessionShop/**"/>
 	    <mapping path="/dbShop/**"/>
 	    <beans:ref bean="studyInterceptor"/>
 	  </interceptor>

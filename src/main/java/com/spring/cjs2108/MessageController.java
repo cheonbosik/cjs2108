@@ -122,6 +122,12 @@ public class MessageController {
 			model.addAttribute("msg", "메인이미지가 업로드 되었습니다.");
 			model.addAttribute("url", "study/mainImageList");
 		}
+		else if(msgFlag.equals("thumbnailCreateNo")) {
+			model.addAttribute("msg", "썸네일 이미지 업로드 실패~~~");
+			model.addAttribute("url", "study2/thumbnail");
+		}
+		
+		
 		
 		
 		
@@ -138,6 +144,10 @@ public class MessageController {
 		else if(msgFlag.substring(0, 11).equals("imgDeleteOk")) {
 			model.addAttribute("msg", "임시 그림파일("+msgFlag.substring(12)+"개)이 모두 삭제되었습니다.");
 			model.addAttribute("url", "admin/imsiFileDelete");
+		}
+		else if(msgFlag.substring(0, 17).equals("thumbnailCreateOk")) {
+			model.addAttribute("msg", "썸네일 이미지가 성공적으로 업로드 되었습니다.");
+			model.addAttribute("url", "study2/thumbnailView?"+msgFlag.substring(18));
 		}
 		
 		

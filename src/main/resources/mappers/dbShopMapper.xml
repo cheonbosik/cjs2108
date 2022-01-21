@@ -80,7 +80,7 @@
   </select>
 	
 	<select id="dbCartListProductOptionSearch" resultType="com.spring.cjs2108.vo.DbCartListVO">
-    select * from dbCartList where productName=#{productName} and optionName=#{optionName};
+    select * from dbCartList where productName=#{productName} and optionName=#{optionName} and mid = #{mid};
   </select>
   
   <select id="getDbCartList" resultType="com.spring.cjs2108.vo.DbCartListVO">

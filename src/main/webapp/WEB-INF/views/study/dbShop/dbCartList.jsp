@@ -215,6 +215,7 @@
 	  <input type="hidden" name="orderTotalPrice" id="orderTotalPrice"/>
 	</form>
 	<br/>
+	<%-- 
 	<div align="center">
 	  <b>실제 주문총금액</b>(구매하실 상품에 체크해 주세요. 총주문금액이 산출됩니다.)
 	</div>
@@ -239,7 +240,34 @@
 	  <button class="btn btn-secondary" onClick="order()">주문하기</button> &nbsp;&nbsp;
 	  <button class="btn btn-secondary" onClick="location.href='${ctp}/dbShop/dbShopList';">계속 쇼핑하기</button>
 	</div>
+	 --%>
+	<div class="row">
+	  <p><b>실제 주문총금액</b>(구매하실 상품에 체크해 주세요. 총주문금액이 산출됩니다.)</p>
+	</div>
+	<div class="row">
+	  <div class="col">
+	    상품금액<br/>
+	    <input type="text" id="total" value="0" class="totSubBox" readonly/>
+	  </div>
+	  <div class="col"> + </div>
+	  <div class="col">
+	    배송비<br/>
+	    <input type="text" id="baesong" value="0" class="totSubBox" readonly/>
+	  </div>
+	  <div class="col"> = </div>
+	  <div class="col">
+	    총주문금액<br/>
+	    <input type="text" id="lastPrice" value="0" class="totSubBox" readonly/>
+	  </div>
+	  <div class="col-6"></div>
+	</div>
+	<p><br/></p>
+	<div>
+	  <button class="btn btn-secondary" onClick="order()">주문하기</button> &nbsp;&nbsp;
+	  <button class="btn btn-secondary" onClick="location.href='${ctp}/dbShop/dbShopList';">계속 쇼핑하기</button>
+	</div>
 </div>
+
 <p><br/></p>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 </body>

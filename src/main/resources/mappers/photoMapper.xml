@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs2108.dao.PhotoDAO">
+  <select id="getPhoto" resultType="com.spring.cjs2108.vo.PhotoVO">
+    select * from photo order by idx desc limit 0,20;
+  </select>
+  
+  <insert id="photoInputOk">
+    insert into photo values (default, #{vo.name}, #{vo.part}, #{vo.title}, #{vo.content}, #{vo.thumbnail}, #{vo.firstFile}, default, #{vo.hostIp}, default);
+  </insert>
+  
+  <select id="getPhotoContent" resultType="com.spring.cjs2108.vo.PhotoVO">
+    select * from photo where idx = #{idx};
+  </select>
+  
+  <update id="setReadNumCount">
+    update photo set readNum = readNum + 1 where idx = #{idx};
+  </update>
+  
+  <delete id="photoDelete">
+    delete from photo where idx = #{idx}; 
+  </delete>
+  
+  <select id="totRecCnt" resultType="int">
+    select count(*) from photo where part = #{part};
+  </select>
+  
+  <select id="photoPartList" resultType="com.spring.cjs2108.vo.PhotoVO">
+    <if test="part == '전체'">
+    	select * from photo limit #{startNo},#{pageSize};
+    </if>
+    <if test="part != '전체'">
+    	select * from photo where part = #{part} limit #{startNo},#{pageSize};
+    </if>
+  </select>
+  
+  <select id="totSearchRecCnt" resultType="int">
+    select count(idx) from photo where ${search} like concat('%',#{searchString},'%');
+  </select>
+  
+  <select id="photoSearchList" resultType="com.spring.cjs2108.vo.PhotoVO">
+    select bb.*, cast(timestampdiff(minute, bb.wDate, now())/60 as signed integer) as diffTime from photo bb where ${search} like concat('%',#{searchString},'%')  order by idx desc limit #{startNo},#{pageSize};
+  </select>
+  
+  
+</mapper>

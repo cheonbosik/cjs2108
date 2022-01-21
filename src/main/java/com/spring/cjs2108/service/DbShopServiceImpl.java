@@ -210,7 +210,6 @@ public class DbShopServiceImpl implements DbShopService {
 
 	@Override
 	public void setDbOptionInput(DbOptionVO vo) {
-		System.out.println("vo : " + vo);
 		dbShopDAO.setDbOptionInput(vo);
 	}
 
@@ -240,8 +239,8 @@ public class DbShopServiceImpl implements DbShopService {
 	}
 
 	@Override
-	public DbCartListVO dbCartListProductOptionSearch(String productName, String optionName) {
-		return dbShopDAO.dbCartListProductOptionSearch(productName, optionName);
+	public DbCartListVO dbCartListProductOptionSearch(String productName, String optionName, String mid) {
+		return dbShopDAO.dbCartListProductOptionSearch(productName, optionName, mid);
 	}
 
 	@Override

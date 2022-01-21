@@ -16,6 +16,7 @@
   <p><a href="${ctp}/admin/boardTempDelete">게시판 임시파일 삭제</a></p>
   <p><a href="${ctp}/admin/productTempDelete">상품등록 임시파일 삭제</a></p>
   <p><a href="${ctp}/admin/dataTempDelete">데이터폴더의 임시파일 삭제</a></p>
+  <p><a href="${ctp}/admin/thumbnailTempDelete">썸네일 연습파일 삭제</a></p>
   <hr/>
 </div>
 <br/>

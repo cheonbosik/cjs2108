@@ -126,6 +126,14 @@ public class MessageController {
 			model.addAttribute("msg", "썸네일 이미지 업로드 실패~~~");
 			model.addAttribute("url", "study2/thumbnail");
 		}
+		else if(msgFlag.equals("photoInputOk")) {
+			model.addAttribute("msg", "포토갤러리에 사진이 등록 되었습니다.");
+			model.addAttribute("url", "photo/photo");
+		}
+		else if(msgFlag.equals("photoDeleteOk")) {
+			model.addAttribute("msg", "포토갤러리에 선택하신 내역이 삭제 되었습니다.");
+			model.addAttribute("url", "photo/photo");
+		}
 		
 		
 		

@@ -38,6 +38,8 @@
 	      <button class="w3-padding-large w3-button" title="More">Study2 <i class="fa fa-caret-down"></i></button>     
 	      <div class="w3-dropdown-content w3-bar-block w3-card-4">
 	        <a href="${ctp}/study2/thumbnail" class="w3-bar-item w3-button">썸네일연습</a>
+	        <a href="${ctp}/photo/photo" class="w3-bar-item w3-button">포토갤러리</a>
+	        <a href="${ctp}/study2/kakaomap" class="w3-bar-item w3-button">카카오맵</a>
 	      </div>
 	    </div>
 	    <div class="w3-dropdown-hover w3-hide-small">

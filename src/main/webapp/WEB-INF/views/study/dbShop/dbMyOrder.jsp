@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <title>dbMyOrder.jsp(회원 주문확인)</title>
   <jsp:include page="/WEB-INF/views/include/bs4.jsp"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script>
     // 배송지 정보보기
     function nWin(orderIdx) {

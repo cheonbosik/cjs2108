@@ -59,7 +59,7 @@ public interface DbShopService {
 
 	public List<DbOptionVO> getDbShopOption(int idx);
 
-	public DbCartListVO dbCartListProductOptionSearch(String productName, String optionName);
+	public DbCartListVO dbCartListProductOptionSearch(String productName, String optionName, String mid);
 
 	public void dbShopCartUpdate(DbCartListVO vo);
 

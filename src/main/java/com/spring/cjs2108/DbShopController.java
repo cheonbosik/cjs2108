@@ -70,7 +70,6 @@ public class DbShopController {
 	@ResponseBody
 	@RequestMapping(value="/categorySubName", method = RequestMethod.POST)
 	public List<CategorySubVO> categorySubNamePost(String categoryMainCode, String categoryMiddleCode) {
-		//System.out.println("db: " + dbShopService.getCategorySubName(categoryMainCode, categoryMiddleCode));
 		return dbShopService.getCategorySubName(categoryMainCode, categoryMiddleCode);
 	}
 	
@@ -192,7 +191,6 @@ public class DbShopController {
 	// 옵션 기록사항 등록하기
 	@RequestMapping(value="/dbOption", method=RequestMethod.POST)
 	public String dbOptionPost(DbOptionVO vo, String[] optionName, int[] optionPrice) {
-		System.out.println("vo.getProductIdx : " + vo.getProductIdx());
 		for(int i=0; i<optionName.length; i++) {
 			vo.setProductIdx(vo.getProductIdx());
 			vo.setOptionName(optionName[i]);
@@ -239,11 +237,11 @@ public class DbShopController {
 	
   // 진열상품중에서 선택한상품을 장바구니로 보내기
 	@RequestMapping(value="/dbShopContent", method=RequestMethod.POST)
-	public String dbShopContentPost(DbCartListVO vo) {
+	public String dbShopContentPost(DbCartListVO vo, HttpSession session) {
 		// 구매한 상품과 상품의 옵션 정보를 읽어온다. 이때, 기존에 구매했었던 제품이 장바구니에 담겨있었다면 지금 상품을 기존 장바구니에 'update'시키고, 처음 구매한 장바구니이면 새로담긴 품목을 장바구니 테이블에 'insert'시켜준다.
 		// 장바구니테이블에서 지금 구매한 상품이 예전 장바구니에도 담겨있는지 확인하기위해 상품명과 옵션명을 넘겨서 기존 장바구니 내용을 검색해 온다.
-		//System.out.println("vo : " + vo);
-		DbCartListVO resVo = dbShopService.dbCartListProductOptionSearch(vo.getProductName(), vo.getOptionName());
+		String mid = (String) session.getAttribute("sMid");
+		DbCartListVO resVo = dbShopService.dbCartListProductOptionSearch(vo.getProductName(), vo.getOptionName(), mid);
 		if(resVo != null) {		// 기존에 구매한적이 있다면....update 시킨다.
 			String[] voOptionNums = vo.getOptionNum().split(",");     // 앞에서 넘어온 vo안의 옵션리스트(배열로 넘어온다. 따라서 자료(옵션)가 여러개라면 ','로 들어있기에 ','로 분리시켜주었다.)
 			String[] resOptionNums = resVo.getOptionNum().split(","); // 기존 DB에 저장되어 있던 장바구니 : resVo
@@ -283,7 +281,6 @@ public class DbShopController {
 		List<DbOrderVO> orderVos = new ArrayList<DbOrderVO>();
 		
 		for(String idx : idxChecked) {
-			//System.out.println("idx: " + idx);
 			cartVo = dbShopService.getCartIdx(idx);
 			DbOrderVO orderVo = new DbOrderVO();
 			orderVo.setProductIdx(cartVo.getProductIdx());
@@ -523,12 +520,10 @@ public class DbShopController {
 			Date now = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			strNow = sdf.format(now);
-			System.out.println(strNow);
 		}
 		
 		//int totRecCnt = dbShopService.totRecCntAdminStatus(startJumun, endJumun, orderStatus);
 		int totRecCnt = dbShopService.totRecCntAdminStatus(strNow, strNow, orderStatus);
-		System.out.println("totRecCnt : " + totRecCnt);
 		int totPage = (totRecCnt % pageSize)==0 ? totRecCnt/pageSize : (totRecCnt/pageSize) + 1;
 		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStrarNo = totRecCnt - startIndexNo;

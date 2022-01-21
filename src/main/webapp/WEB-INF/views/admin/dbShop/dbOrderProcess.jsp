@@ -80,7 +80,7 @@
         <input type="date" name="startJumun" id="startJumun"/> ~<input type="date" name="endJumun" id="endJumun"/>
         <button type="button" id="orderDateSearch" class="btn btn-outline-secondary m-0 p-1">조회</button>
       </td>
-      <td align="right">주문상태조회 :
+      <td align="right">(날짜선택후)주문상태조회 :
         <select name="orderStatus" id="orderStatus">
           <option value="전체"    ${orderStatus == '전체'    ? 'selected' : ''}>전체</option>
           <option value="결제완료" ${orderStatus == '결제완료' ? 'selected' : ''}>결제완료</option>

@@ -61,7 +61,7 @@ public interface DbShopDAO {
 
 	public List<DbOptionVO> getDbShopOption(@Param("idx") int idx);
 
-	public DbCartListVO dbCartListProductOptionSearch(@Param("productName") String productName, @Param("optionName") String optionName);
+	public DbCartListVO dbCartListProductOptionSearch(@Param("productName") String productName, @Param("optionName") String optionName, @Param("mid") String mid);
 
 	public void dbShopCartUpdate(@Param("vo") DbCartListVO vo);
 

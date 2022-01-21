@@ -178,5 +178,15 @@ public class AdminController {
 		msgFlag = "imgDeleteOk$"+fileCnt;
 		return "redirect:/msg/" + msgFlag;
 	}
+	
+	// data/thumbnail폴더의 연습파일 삭제 하기
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/thumbnailTempDelete", method=RequestMethod.GET)
+	public String thumbnailTempDeleteGet(HttpServletRequest request) {
+		String uploadPath = request.getRealPath("/resources/data/thumbnail/");
+		int fileCnt = adminService.imgDelete(uploadPath);
+		msgFlag = "imgDeleteOk$"+fileCnt;
+		return "redirect:/msg/" + msgFlag;
+	}
 }
 

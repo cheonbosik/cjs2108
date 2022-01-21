@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.cjs2108.dao.Study2DAO">
+  <select id="getAddress1" resultType="String">
+    select distinct address1 from area;
+  </select>
+   
+  <select id="getAddress2" resultType="com.spring.cjs2108.vo.AreaVO">
+    select * from area where address1 = #{address1} order by address2;
+  </select>
+   
+  <select id="getAddressSearch" resultType="com.spring.cjs2108.vo.AreaVO">
+    select distinct address1, address2, latitude, longitude from area where address1 = #{address1} and address2 = #{address2};
+  </select>
   
+  <select id="getAddressName" resultType="com.spring.cjs2108.vo.AddressVO">
+    select * from address where address = #{address};
+  </select>
+  
+  <select id="getAddressNameList" resultType="com.spring.cjs2108.vo.AddressVO">
+    select * from address order by address;
+  </select>
+  
+  <insert id="setAddressName">
+    insert into address values (#{vo.address},#{vo.latitude},#{vo.longitude});
+  </insert>
+  
+  <delete id="getAddressNameDelete">
+  	delete from address where address = #{address};
+  </delete>
 </mapper>

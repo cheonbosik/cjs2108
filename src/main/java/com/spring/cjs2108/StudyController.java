@@ -81,7 +81,6 @@ public class StudyController {
 	public ArrayList<String> ajaxTest2Post(String dodo) {
 //		ArrayList<String> vos = new ArrayList<String>();
 //		vos = studyService.getCity(dodo);
-//		System.out.println("vos : " + vos);
 //		return vos;
 		return studyService.getCity(dodo);
 	}
@@ -117,7 +116,6 @@ public class StudyController {
 	@RequestMapping(value="/ajax/ajaxTest4_2", method = RequestMethod.POST)
 	public ArrayList<MemberVO> ajaxTest4_2Post(String mid) {
 //		ArrayList<MemberVO> vos = studyService.getMemberVos(mid);
-//		System.out.println("vos: " + vos);
 //		return vos;
 		return studyService.getMemberVos(mid);
 	}

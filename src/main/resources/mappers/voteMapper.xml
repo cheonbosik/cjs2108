@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.cjs2108.dao.VoteDAO">
+  <select id="totVotePopularRecCnt" resultType="int">
+  	<if test="part == '전체'">
+    	select count(idx) from votePopular;
+    </if>
+  	<if test="part != '전체'">
+    	select count(idx) from votePopular where part=#{part};
+    </if>
+  </select>
+  
+  <select id="totRecCnt" resultType="int">
+    <if test="part == '전체'">
+    	select count(idx) from votePopular;
+    </if>
+    <if test="part != '전체'">
+    	select count(idx) from votePopular where part = #{part};
+    </if>
+  </select>
+  
+  <select id="aVotePopularList" resultType="com.spring.cjs2108.vo.VotePopularVO">
+    <if test="part == '전체'">
+    	select aa.*, (select count(*) from vote where popularIdx=aa.idx) as voteCnt from votePopular aa order by idx desc limit #{startNo}, #{pageSize};
+    </if>
+    <if test="part != '전체'">
+    	select aa.*, (select count(*) from vote where popularIdx=aa.idx) as voteCnt from votePopular aa where part=#{part} order by idx desc limit #{startNo}, #{pageSize};
+    </if>
+  </select>
+  
+  <select id="getVotePopularView" resultType="com.spring.cjs2108.vo.VotePopularVO">
+    select * from votePopular where idx = #{idx};
+  </select>
+  
+  <select id="memberSearch" resultType="com.spring.cjs2108.vo.MemberVO">
+    select * from member2 where mid = #{mid};
+  </select>
+  
+  <select id="getCountVotePersonInfor" resultType="int">
+    select count(idx) from votePersonInfor;
+  </select>
+  
+  <select id="getMaxVotePersonInfor" resultType="int">
+    select max(idx) from votePersonInfor;
+  </select>
+  
+  <select id="getMaxVotePopularIdx" resultType="int">
+    select count(idx) from votePopular;
+  </select>
+  
+  <select id="getCountVoteIdx" resultType="int">
+    select count(idx) from vote;
+  </select>
+  
+  <select id="getMaxVoteIdx" resultType="int">
+    select max(idx) from vote;
+  </select>
+  
+  <select id="voteResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    <!-- select voteNum, count(voteNum) as voteSum, popularIdx from vote where popularIdx=#{idx} group by voteNum; -->
+    select voteNum, count(voteNum) as voteSum, popularIdx, (select title from votePopular where idx=#{idx}) as title, (select subTitle from votePopular where idx=#{idx}) as subTitle from vote where popularIdx=#{idx} group by voteNum;
+    <!-- select a.voteNum, count(a.voteNum) as voteSum, b.subTitle as subTitle from vote a, votePopular b where a.popularIdx=#{idx} group by a.voteNum; -->
+  </select>
+  
+  <select id="voteGenderResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    select popularIdx, (select title from votePopular where idx=#{idx}) as title, gender, count(gender) as voteSum from (select popularIdx,personInforIdx,
+		  (select gender from votePersonInfor where idx=vote.personInforIdx) as gender 
+		  from vote where popularIdx=#{idx} group by personInforIdx) imsi group by imsi.gender;
+  </select>
+  
+  <select id="voteAgeResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    select popularIdx, (select title from votePopular where idx=#{idx}) as title, age, count(age) as voteSum
+		  from (select popularIdx,personInforIdx,
+		  (select age from votePersonInfor where idx=vote.personInforIdx) as age 
+		  from vote where popularIdx=#{idx} group by personInforIdx) imsi group by imsi.age;
+  </select>
+  <!-- 
+  <select id="voteAreaResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    select popularIdx, (select title from votePopular where idx=#{idx}) as title, area, count(area) as voteSum
+		  from (select popularIdx,personInforIdx,
+		  (select area from votePersonInfor where idx=vote.personInforIdx) as area 
+		  from vote where popularIdx=#{idx} group by personInforIdx) imsi group by imsi.area;
+  </select>
+   -->
+  <select id="voteAreaResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    select popularIdx,personInforIdx,(select area from votePersonInfor where idx=vote.personInforIdx) as area, voteNum, count(*) as voteSum
+  		from vote where popularIdx=#{idx} and voteNum=#{voteNum} group by area;
+  </select>
+  
+  <select id="voteJobResultView" resultType="com.spring.cjs2108.vo.VoteVO">
+    select popularIdx,personInforIdx,(select job from votePersonInfor where idx=vote.personInforIdx) as job, voteNum, count(*) as voteSum
+  		from vote where popularIdx=#{idx} and voteNum=#{voteNum} group by job;
+  </select>
+  
+  <select id="getVoteTotCnt" resultType="int">
+    select count(idx) from vote where popularIdx=#{idx};
+  </select>
+  
+  <select id="getVoteSubTitle" resultType="String">
+    select subTitle from votePopular where idx=#{idx};
+  </select>
+  
+	<insert id="aVotePopularInputOk">
+    insert into votePopular values (#{vo.idx},#{vo.part},#{vo.title},#{vo.subTitle},#{vo.realImg},#{vo.thumbImg},default);
+  </insert>
+  
+  <insert id="aVoteInforInsert">
+    insert into votePersonInfor values (${personVO.idx},#{personVO.gender},#{personVO.age},#{personVO.job},#{personVO.area});
+  </insert>
+  
+  <insert id="voteSelectInsert">
+    insert into vote values (#{vo.idx},#{vo.personInforIdx},#{vo.popularIdx},#{vo.voteNum});
+  </insert>
+  
+  <update id="setProgress">
+    update votePopular set progress = #{progress} where idx = #{idx};
+  </update>
+  
+  <delete id="votePopularDelete">
+  	delete from vote where popularIdx = #{idx};
+    delete from votePopular where idx = #{idx};
+  </delete>
+  
+</mapper>

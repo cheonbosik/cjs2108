@@ -168,5 +168,10 @@ public class MemberServiceImpl implements MemberService {
 	public int getBoardWriteCnt(String mid) {
 		return memberDAO.getBoardWriteCnt(mid);
 	}
+
+	@Override
+	public int getPdsWriteCnt(String mid) {
+		return memberDAO.getPdsWriteCnt(mid);
+	}
 	
 }

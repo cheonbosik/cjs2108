@@ -35,5 +35,7 @@ public interface MemberDAO {
 
 	public int getBoardWriteCnt(@Param("mid") String mid);
 
+	public int getPdsWriteCnt(@Param("mid") String mid);
+
 
 }

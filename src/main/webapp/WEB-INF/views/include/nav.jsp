@@ -40,6 +40,7 @@
 	        <a href="${ctp}/study2/thumbnail" class="w3-bar-item w3-button">썸네일연습</a>
 	        <a href="${ctp}/photo/photo" class="w3-bar-item w3-button">포토갤러리</a>
 	        <a href="${ctp}/study2/kakaomap" class="w3-bar-item w3-button">카카오맵</a>
+	        <a href="${ctp}/study2/chart" class="w3-bar-item w3-button">구글차트</a>
 	      </div>
 	    </div>
 	    <div class="w3-dropdown-hover w3-hide-small">
@@ -58,6 +59,7 @@
 	      </div>
 	    </div>
 	  </c:if>
+	  <a href="${ctp}/vote/voteInforInsert/" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Vote</a>
     <c:if test="${empty  sLevel}"><a href="${ctp}/member/memLogin" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a></c:if>
     <c:if test="${!empty sLevel}"><a href="${ctp}/member/memLogout" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Logout</a></c:if>
     <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>

@@ -107,21 +107,28 @@
     // 답변글(부모댓글의 댓글)
     function insertReply(idx,level,levelOrder,nickName) {
     	var insReply = "";
-    	insReply += "<table style='width:90%'>";
-    	insReply += "<tr>";
-    	insReply += "<td>";
-    	insReply += "<div class='form-group'>";
-    	insReply += "<label for='content'>답변 댓글 달기:</label> &nbsp;";
-    	insReply += "<input type='text' name='nickName' size='6' value='${sNickName}' readonly />";
-    	insReply += "<textarea rows='3' class='form-control' name='content' id='content"+idx+"'>@"+nickName+"\n</textarea>";
-    	insReply += "</div>";
+    	insReply += "<div class='container'><table style='width:90%' class='m-2 p-0'>";
+    	insReply += "  <tr>";
+    	insReply += "    <td class='p-0 text-left'>";
+    	/* insReply += "    <div class='form-group'>"; */
+    	/* insReply += "<label for='content'>답변 댓글 달기:</label> &nbsp;"; */
+    	insReply += "답변 댓글 달기: &nbsp;";
+    	insReply += "<input type='text' name='nickName' size='6' value='${sNickName}' readonly  class='p-0'/>";
+    	/* insReply += "</div>"; */
     	insReply += "</td>";
-    	insReply += "<td>";
+    	insReply += "<td class='text-right p-0'>";
     	insReply += "<input type='button' value='답글달기' onclick='replyCheck2("+idx+","+level+","+levelOrder+")'/>";
     	insReply += "</td>";
     	insReply += "</tr>";
-    	insReply += "</table>";
-    	insReply += "<hr style='margin:0px'/>";
+    	insReply += "<tr>";
+    	insReply += "<td colspan='2' class='text-center p-0'>";
+    	/* insReply += "<div>"; */
+    	insReply += "<textarea rows='3' class='form-control' name='content' id='content"+idx+"' class='p-0'>@"+nickName+"\n</textarea>";
+    	/* insReply += "</div>"; */
+    	insReply += "</td>";
+    	insReply += "</tr>";
+    	insReply += "</table></div>";
+    	/* insReply += "<hr style='margin:0px'/>"; */
     	
     	$("#replyBoxOpenBtn"+idx).hide();
     	$("#replyBoxCloseBtn"+idx).show();
@@ -271,7 +278,6 @@
 	    </tr>
 	  </table>
   </c:if>
-  <br/>
   
   <div class="container text-center mb-3">
     <input type="button" value="댓글보이기" id="replyViewBtn" class="btn btn-secondary"/>
@@ -280,9 +286,9 @@
   <!-- 댓글 출력/입력 처리부분 -->
   <!-- 댓글 출력 -->
   <div id="reply">
-	  <table class="table table-hover">
+	  <table class="table table-hover m-0 p-0 table-borderless">
 	    <tr>
-	      <th>작성자</th>
+	      <th class="text-left pl-4">작성자</th>
 	      <th>댓글내용</th>
 	      <th>작성일자</th>
 	      <th>접속IP</th>
@@ -312,13 +318,13 @@
 	        </td>
 	        <td>${rVo.WDate}</td>
 	        <td>${rVo.hostIp}</td>
-	        <td>
-	          <input type="button" value="답글" onclick="insertReply('${rVo.idx}','${rVo.level}','${rVo.levelOrder}','${rVo.nickName}')" id="replyBoxOpenBtn${rVo.idx}" />
-	          <input type="button" value="닫기" onclick="closeReply(${rVo.idx})" id="replyBoxCloseBtn${rVo.idx}" class="replyBoxClose" style="display:none"/>
+	        <td class="m-0 pt-2">
+	          <input type="button" value="답글" onclick="insertReply('${rVo.idx}','${rVo.level}','${rVo.levelOrder}','${rVo.nickName}')" id="replyBoxOpenBtn${rVo.idx}" class="p-0"/>
+	          <input type="button" value="닫기" onclick="closeReply(${rVo.idx})" id="replyBoxCloseBtn${rVo.idx}" class="replyBoxClose p-0" style="display:none"/>
 	        </td>
 	      </tr>
 	      <tr>
-	      	<td colspan="5"><div id="replyBox${rVo.idx}"></div></td>
+	      	<td colspan="5" class="m-0 p-0" style="border-top:none;"><div id="replyBox${rVo.idx}"></div></td>
 	      </tr>
 	    </c:forEach>
 	  </table>

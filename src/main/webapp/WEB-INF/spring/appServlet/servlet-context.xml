@@ -23,6 +23,7 @@
 	<resources mapping="/pds/**" location="/resources/data/pds/" />
 	<resources mapping="/dbShop/**" location="/resources/data/dbShop/product/" />
 	<resources mapping="/photo/**" location="/resources/data/photo/" />
+	<resources mapping="vote/**" location="/resources/data/vote/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

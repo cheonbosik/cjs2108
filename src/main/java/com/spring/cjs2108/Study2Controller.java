@@ -141,4 +141,12 @@ public class Study2Controller {
 		return "study/kakaomap/kakaoEx4Search";
 	}
 	
+	// 구글 차트 고르기
+	@RequestMapping(value="/chart")
+	public String chartGet(Model model,
+			@RequestParam(name="part", defaultValue="bar", required=false) String part) {
+		model.addAttribute("part", part);
+		return "study/chart/chart";
+	}
+	
 }

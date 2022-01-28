@@ -37,6 +37,10 @@ public class MessageController {
 			model.addAttribute("msg", nickName + "님 사용불가입니다.\\n 세션이 끈어졌거나 등급확인후 사용하세요.");
 			model.addAttribute("url", "/");
 		}
+		else if(msgFlag.equals("sessionNo")) {
+			model.addAttribute("msg", "세션이 끈어졌습니다. 다시 사용하세요");
+			model.addAttribute("url", "/");
+		}
 		else if(msgFlag.equals("fileUploadOk")) {
 			model.addAttribute("msg", "파일이 업로드 되었습니다.");
 			model.addAttribute("url", "study/fileUpload");
@@ -133,6 +137,10 @@ public class MessageController {
 		else if(msgFlag.equals("photoDeleteOk")) {
 			model.addAttribute("msg", "포토갤러리에 선택하신 내역이 삭제 되었습니다.");
 			model.addAttribute("url", "photo/photo");
+		}
+		else if(msgFlag.equals("aVoteInputOk")) {
+			model.addAttribute("msg", "설문항목이 등록되었습니다.");
+			model.addAttribute("url", "vote/aVoteList");
 		}
 		
 		

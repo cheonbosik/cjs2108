@@ -113,6 +113,10 @@ public class MemberController {
 		int boardCnt = memberService.getBoardWriteCnt(mid);
 		model.addAttribute("boardCnt", boardCnt);
 		
+		// 자료실에 올린 글수 가져오기
+		int pdsCnt = memberService.getPdsWriteCnt(mid);
+		model.addAttribute("pdsCnt", pdsCnt);
+		
 		return "member/memMain";
 	}
 

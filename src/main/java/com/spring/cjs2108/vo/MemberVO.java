@@ -27,4 +27,6 @@ public class MemberVO {
 	private String startDate;
 	private String lastDate;
 	private int todayCnt;
+	
+	private int ageGroup;		// 나이 그룹(~대, 10대, 20대~~)
 }

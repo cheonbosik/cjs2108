@@ -123,7 +123,7 @@ public class PhotoController {
 			Model model) {
     PageVO pageVO = pageProcess.pagination(pag, pageSize, "photo", part, "");
     pageVO.setPart(part);
-    System.out.println("pageVO : " + pageVO);
+    //System.out.println("pageVO : " + pageVO);
 		
 		List<PhotoVO> vos = photoService.photoPartList(pageVO.getStartNo(), pageSize, part);
 		model.addAttribute("pageVO", pageVO);

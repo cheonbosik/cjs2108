@@ -31,4 +31,6 @@ public interface MemberService {
 
 	public int getBoardWriteCnt(String mid);
 
+	public int getPdsWriteCnt(String mid);
+
 }

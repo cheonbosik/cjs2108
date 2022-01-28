@@ -1,5 +1,7 @@
 package com.spring.cjs2108;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,5 +190,61 @@ public class AdminController {
 		msgFlag = "imgDeleteOk$"+fileCnt;
 		return "redirect:/msg/" + msgFlag;
 	}
+	
+	// 임시폴더의 파일내역보기
+	@SuppressWarnings("deprecation")
+	@ResponseBody
+	@RequestMapping(value="/tempFileLoad")
+	public String[] tempFileLoadGet(HttpServletRequest request, String folderName) throws IOException {
+		String realPath = request.getRealPath("/resources/");
+		
+		if(folderName.equals("DATA")) {
+			realPath += "data/";
+		}
+		else if(folderName.equals("THUMB")) {
+			System.out.println(folderName);
+			realPath += "data/thumbnail/";
+		}
+		else if(folderName.equals("DBSHOP")) {
+			realPath += "data/dbShop/";
+		}
+		else if(folderName.equals("BOARD")) {
+			realPath += "data/ckeditor/";
+		}
+		String[] files = new File(realPath).list();
+		
+		return files;
+	}
+	
+	// 임시폴더의 파일 1개씩 삭제하기
+	@SuppressWarnings("deprecation")
+	@ResponseBody
+	@RequestMapping(value="/fileDelete")
+	public String fileDeleteGet(HttpServletRequest request, String folderName, String file) throws IOException {
+		String realPath = request.getRealPath("/resources/");
+		
+		if(folderName.equals("DATA")) {
+			realPath += "data/";
+		}
+		else if(folderName.equals("THUMB")) {
+			System.out.println(folderName);
+			realPath += "data/thumbnail/";
+		}
+		else if(folderName.equals("DBSHOP")) {
+			realPath += "data/dbShop/";
+		}
+		else if(folderName.equals("BOARD")) {
+			realPath += "board/";
+		}
+		File delFile = new File(realPath+file);
+		if(delFile.exists()) {
+			if(delFile.isDirectory()) return "0";
+			else delFile.delete();
+			return "1";
+		}
+		else return "0";
+	}
+	
+	
 }
 

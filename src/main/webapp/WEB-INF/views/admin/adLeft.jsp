@@ -39,6 +39,8 @@
   <hr/>
   <p><a href="${ctp}/vote/aVoteList" target="adContent">인기투표관리</a></p>
   <hr/>
+  <p><a href="${ctp}/notify/nList" target="adContent">공지사항</a></p>
+  <hr/>
   <p><a href="${ctp}/" target="_top">홈으로</a></p>
   <p><a href="javascript:logoutCheck()">로그아웃</a></p>
 </div>

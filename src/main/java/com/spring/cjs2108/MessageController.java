@@ -142,6 +142,14 @@ public class MessageController {
 			model.addAttribute("msg", "설문항목이 등록되었습니다.");
 			model.addAttribute("url", "vote/aVoteList");
 		}
+		else if(msgFlag.equals("nInputOk")) {
+			model.addAttribute("msg", "공지사항이 등록되었습니다.");
+			model.addAttribute("url", "notify/nList");
+		}
+		else if(msgFlag.equals("nUpdateOk")) {
+			model.addAttribute("msg", "공지사항이 수정되었습니다.");
+			model.addAttribute("url", "notify/nList");
+		}
 		
 		
 		

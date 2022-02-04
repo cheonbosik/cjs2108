@@ -2,6 +2,9 @@ package com.spring.cjs2108;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -149,4 +152,20 @@ public class Study2Controller {
 		return "study/chart/chart";
 	}
 	
+	// QR코드 생성하기 폼(URL 등록폼)
+	@RequestMapping(value="/qrCode", method=RequestMethod.GET)
+	public String qrCodeGet() {
+		return "study/qrcode/qrcode";
+	}
+	
+	@SuppressWarnings("deprecation")
+	@ResponseBody
+	@RequestMapping(value="/qrCreate", method=RequestMethod.POST)
+	public String barCreatePost(HttpServletRequest request, HttpSession session, String moveUrl) {
+		String mid = (String) session.getAttribute("sMid");
+		String uploadPath = request.getRealPath("/resources/data/qrcode/");
+		String barCodeName = study2Service.qrCreate(mid, uploadPath, moveUrl);	// qr코드가 저장될 서버경로와 qr코드 찍었을때 이동할 url을 서비스객체로 넘겨서 qr코드를 생성하게 한다.
+
+    return barCodeName;
+	}
 }

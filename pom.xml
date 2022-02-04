@@ -229,6 +229,13 @@
 		  <version>4.2</version>
 		</dependency>
 		
+		<!-- bar/QR코드 생성을 위한 라이브러리(Zxing) / 구글에서 제공하는 라이브러리 -->
+		<dependency>
+	    <groupId>com.google.zxing</groupId>
+	    <artifactId>javase</artifactId>
+	    <version>3.3.3</version>
+		</dependency>
+		
 
 
 

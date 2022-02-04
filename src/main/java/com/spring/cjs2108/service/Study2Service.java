@@ -25,4 +25,6 @@ public interface Study2Service {
 	public List<AddressVO> getAddressNameList();
 
 	public void getAddressNameDelete(String address);
+
+	public String qrCreate(String mid, String uploadPath, String moveUrl);
 }

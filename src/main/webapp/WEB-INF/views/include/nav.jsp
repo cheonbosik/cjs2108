@@ -41,6 +41,7 @@
 	        <a href="${ctp}/photo/photo" class="w3-bar-item w3-button">포토갤러리</a>
 	        <a href="${ctp}/study2/kakaomap" class="w3-bar-item w3-button">카카오맵</a>
 	        <a href="${ctp}/study2/chart" class="w3-bar-item w3-button">구글차트</a>
+	        <a href="${ctp}/study2/qrCode" class="w3-bar-item w3-button">QR코드생성</a>
 	      </div>
 	    </div>
 	    <div class="w3-dropdown-hover w3-hide-small">
